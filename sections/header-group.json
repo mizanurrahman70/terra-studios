@@ -1,22 +1,25 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "type": "header",
-  "name": "t:general.header",
+  "name": "Header group",
   "sections": {
     "header": {
       "type": "header",
-      "settings": {}
+      "blocks": {
+        "new_arrivals": { "type": "link", "settings": { "label": "New Arrivals", "url": "/collections/new-arrivals" } },
+        "tableware": { "type": "link", "settings": { "label": "Tableware", "url": "/collections/dinnerware" } },
+        "vases_decor": { "type": "link", "settings": { "label": "Vases & Decor", "url": "/collections/vases" } },
+        "our_story": { "type": "link", "settings": { "label": "Our Story", "url": "/pages/our-story" } },
+        "journal": { "type": "link", "settings": { "label": "Journal", "url": "/blogs/journal" } }
+      },
+      "block_order": ["new_arrivals", "tableware", "vases_decor", "our_story", "journal"],
+      "settings": {
+        "show_announcement": true,
+        "announcement_text": "Free shipping on domestic orders over $150 — handcrafted in small batches",
+        "show_search": true,
+        "search_placeholder": "Search collections..."
+      }
     }
   },
-  "order": [
-    "header"
-  ],
+  "order": ["header"]
 }
