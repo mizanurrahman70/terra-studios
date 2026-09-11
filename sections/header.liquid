@@ -3,59 +3,101 @@
   if section.settings.menu != blank and section.settings.menu.links.size > 0
     assign has_menu = true
   endif
+
+  if section.settings.use_custom_colors
+    assign header_bg = section.settings.header_bg_color
+    assign header_fg = section.settings.header_text_color
+    assign header_accent = section.settings.header_accent_color
+    assign header_border = section.settings.header_border_color
+    assign announcement_bg = section.settings.announcement_bg_color
+    assign announcement_fg = section.settings.announcement_text_color
+    assign search_bg = section.settings.search_bg_color
+  else
+    assign header_bg = '#ffffff'
+    assign header_fg = '#2b2925'
+    assign header_accent = '#c4592e'
+    assign header_border = '#e9e4dd'
+    assign announcement_bg = '#c4592e'
+    assign announcement_fg = '#ffffff'
+    assign search_bg = '#f8f6f3'
+  endif
 %}
 
-{% if section.settings.show_announcement %}
-  <aside class="terra-announcement" aria-label="Store announcement"><p>{{ section.settings.announcement_text | escape }}</p></aside>
-{% endif %}
+{% style %}
+  #TerraHeader-{{ section.id }} {
+    --terra-header-bg: {{ header_bg }};
+    --terra-header-fg: {{ header_fg }};
+    --terra-header-accent: {{ header_accent }};
+    --terra-header-border: {{ header_border }};
+    --terra-announcement-bg: {{ announcement_bg }};
+    --terra-announcement-fg: {{ announcement_fg }};
+    --terra-search-bg: {{ search_bg }};
+    --terra-header-pad-top: {{ section.settings.header_padding_top }}px;
+    --terra-header-pad-right: {{ section.settings.header_padding_right }}px;
+    --terra-header-pad-bottom: {{ section.settings.header_padding_bottom }}px;
+    --terra-header-pad-left: {{ section.settings.header_padding_left }}px;
+    --terra-header-min-height: {{ section.settings.header_min_height }}px;
+    --terra-header-max-width: {{ section.settings.header_max_width }}px;
+    --terra-menu-gap: {{ section.settings.menu_gap }}px;
+    --terra-menu-margin-left: {{ section.settings.menu_margin_left }}px;
+    --terra-menu-font-size: {{ section.settings.menu_font_size }}px;
+    --terra-search-width: {{ section.settings.search_width }}px;
+  }
+{% endstyle %}
 
-<header class="terra-header">
-  <div class="terra-header__inner">
-    <details class="terra-header__drawer">
-      <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
-      <nav class="terra-header__mobile-nav" aria-label="Mobile navigation">
+<div id="TerraHeader-{{ section.id }}" class="terra-header-root">
+  {% if section.settings.show_announcement %}
+    <aside class="terra-announcement" aria-label="Store announcement"><p>{{ section.settings.announcement_text | escape }}</p></aside>
+  {% endif %}
+
+  <header class="terra-header">
+    <div class="terra-header__inner">
+      <details class="terra-header__drawer">
+        <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
+        <nav class="terra-header__mobile-nav" aria-label="Mobile navigation">
+          {% if has_menu %}
+            {% for link in section.settings.menu.links %}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+              {% for child_link in link.links %}<a class="terra-header__mobile-child" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endfor %}
+            {% endfor %}
+          {% else %}
+            {% for block in section.blocks %}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endfor %}
+          {% endif %}
+        </nav>
+      </details>
+
+      <a class="terra-wordmark" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Terra Studios' | escape }} home"><span>TERRA</span><em>STUDIOS</em></a>
+
+      <nav class="terra-header__nav" aria-label="Main navigation">
         {% if has_menu %}
           {% for link in section.settings.menu.links %}
-            <a href="{{ link.url }}">{{ link.title | escape }}</a>
-            {% for child_link in link.links %}<a class="terra-header__mobile-child" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endfor %}
+            <div class="terra-header__nav-item{% if link.links.size > 0 %} terra-header__nav-item--has-children{% endif %}">
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+              {% if link.links.size > 0 %}<div class="terra-header__dropdown">{% for child_link in link.links %}<a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endfor %}</div>{% endif %}
+            </div>
           {% endfor %}
         {% else %}
           {% for block in section.blocks %}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endfor %}
         {% endif %}
       </nav>
-    </details>
 
-    <a class="terra-wordmark" href="{{ routes.root_url }}" aria-label="{{ shop.name | default: 'Terra Studios' | escape }} home"><span>TERRA</span><em>STUDIOS</em></a>
-
-    <nav class="terra-header__nav" aria-label="Main navigation">
-      {% if has_menu %}
-        {% for link in section.settings.menu.links %}
-          <div class="terra-header__nav-item{% if link.links.size > 0 %} terra-header__nav-item--has-children{% endif %}">
-            <a href="{{ link.url }}">{{ link.title | escape }}</a>
-            {% if link.links.size > 0 %}<div class="terra-header__dropdown">{% for child_link in link.links %}<a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endfor %}</div>{% endif %}
-          </div>
-        {% endfor %}
-      {% else %}
-        {% for block in section.blocks %}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endfor %}
-      {% endif %}
-    </nav>
-
-    <div class="terra-header__actions">
-      {% if section.settings.show_search %}
-        <form class="terra-header__search" action="{{ routes.search_url }}" method="get" role="search">
-          <label class="visually-hidden" for="TerraSearch-{{ section.id }}">Search the store</label>
-          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="5.8"></circle><path d="m15.2 15.2 4.3 4.3"></path></svg>
-          <input id="TerraSearch-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder | escape }}">
-        </form>
-      {% endif %}
-      {% if shop.customer_accounts_enabled %}<a class="terra-header__icon" href="{{ routes.account_url }}" aria-label="Account">{{ 'icon-account.svg' | inline_asset_content }}</a>{% endif %}
-      <a class="terra-header__icon terra-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">{{ 'icon-cart.svg' | inline_asset_content }}<span class="terra-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span></a>
+      <div class="terra-header__actions">
+        {% if section.settings.show_search %}
+          <form class="terra-header__search" action="{{ routes.search_url }}" method="get" role="search">
+            <label class="visually-hidden" for="TerraSearch-{{ section.id }}">Search the store</label>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="5.8"></circle><path d="m15.2 15.2 4.3 4.3"></path></svg>
+            <input id="TerraSearch-{{ section.id }}" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder | escape }}">
+          </form>
+        {% endif %}
+        {% if shop.customer_accounts_enabled %}<a class="terra-header__icon" href="{{ routes.account_url }}" aria-label="Account">{{ 'icon-account.svg' | inline_asset_content }}</a>{% endif %}
+        <a class="terra-header__icon terra-header__cart" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">{{ 'icon-cart.svg' | inline_asset_content }}<span class="terra-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span></a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+</div>
 
 {% stylesheet %}
-  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.terra-announcement{grid-column:1/-1;background:#c4592e;color:#fff;font-size:9px;font-weight:700;letter-spacing:.025em;line-height:1.25;padding:4px 20px;text-align:center;text-transform:uppercase}.terra-header{grid-column:1/-1;background:#fff;border-bottom:1px solid #e9e4dd;color:#2b2925;position:relative;z-index:20}.terra-header__inner{align-items:center;display:grid;grid-template-columns:max-content minmax(340px,1fr) max-content;margin:0 auto;max-width:1440px;min-height:58px;padding:0 60px}.terra-wordmark,.terra-header__nav a,.terra-header__icon{color:inherit;text-decoration:none}.terra-wordmark{align-items:baseline;display:inline-flex;font-family:Arial,sans-serif;font-size:17px;font-weight:800;letter-spacing:-.06em;line-height:1;white-space:nowrap}.terra-wordmark em{color:#c4592e;font-size:16px;font-style:normal;font-weight:400;letter-spacing:-.055em;margin-left:6px}.terra-header__nav{align-items:center;display:flex;gap:clamp(18px,2vw,34px);justify-content:flex-start;margin-left:clamp(26px,4.5vw,76px)}.terra-header__nav-item{position:relative}.terra-header__nav a{display:block;font-family:var(--font-primary--family);font-size:11px;font-weight:600;line-height:58px;white-space:nowrap}.terra-header__nav>a:hover,.terra-header__nav-item>a:hover,.terra-header__nav a:focus-visible{color:#c4592e}.terra-header__dropdown{background:#fff;border:1px solid #e9e4dd;box-shadow:0 14px 26px rgb(43 41 37 / 10%);left:-16px;min-width:180px;opacity:0;padding:8px 0;pointer-events:none;position:absolute;top:calc(100% - 1px);transform:translateY(-5px);transition:opacity 160ms ease,transform 160ms ease}.terra-header__dropdown a{font-size:12px;line-height:1.3;padding:10px 16px}.terra-header__nav-item--has-children:hover .terra-header__dropdown,.terra-header__nav-item--has-children:focus-within .terra-header__dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}.terra-header__actions{align-items:center;display:flex;gap:16px}.terra-header__search{align-items:center;background:#f8f6f3;display:flex;height:30px;padding:0 10px;width:150px}.terra-header__search svg{fill:none;flex:0 0 13px;height:13px;stroke:#57514b;stroke-linecap:round;stroke-width:2;width:13px}.terra-header__search input{background:transparent;border:0;color:#2b2925;font-size:10px;height:100%;margin-left:7px;min-width:0;outline:0;padding:0;width:100%}.terra-header__search:focus-within{outline:1px solid #c4592e}.terra-header__search input::placeholder{color:#8b857e;opacity:1}.terra-header__icon{align-items:center;display:inline-flex;height:24px;justify-content:center;position:relative;width:16px}.terra-header__icon svg{height:16px;width:16px}.terra-header__icon:hover,.terra-header__icon:focus-visible{color:#c4592e}.terra-header__cart-count{align-items:center;background:#c4592e;border-radius:50%;color:#fff;display:flex;font-family:Arial,sans-serif;font-size:8px;font-weight:700;height:13px;justify-content:center;left:11px;line-height:1;min-width:13px;position:absolute;top:0}.terra-header__drawer{display:none}@media(max-width:900px){.terra-header__inner{grid-template-columns:max-content 1fr max-content;padding:0 20px}.terra-header__drawer{display:block;margin-right:14px}.terra-header__drawer summary{cursor:pointer;display:grid;gap:4px;list-style:none;width:20px}.terra-header__drawer summary::-webkit-details-marker{display:none}.terra-header__drawer summary span{background:currentcolor;display:block;height:1px;width:19px}.terra-header__mobile-nav{background:#fff;border:1px solid #e9e4dd;box-shadow:0 14px 26px rgb(43 41 37 / 10%);left:0;min-width:250px;padding:16px 0;position:absolute;top:46px}.terra-header__mobile-nav a{color:inherit;display:block;font-size:14px;padding:10px 20px;text-decoration:none}.terra-header__mobile-nav .terra-header__mobile-child{color:#77716b;font-size:13px;padding-left:36px}.terra-header__nav{display:none}.terra-wordmark{justify-self:center}.terra-header__actions{gap:11px}}@media(max-width:560px){.terra-announcement{font-size:8px;padding-block:5px}.terra-header__inner{min-height:54px}.terra-header__search{background:transparent;padding:0;width:18px}.terra-header__search input{display:none}.terra-header__search svg{flex-basis:16px;height:16px;width:16px}.terra-wordmark{font-size:15px}.terra-wordmark em{font-size:14px;margin-left:4px}}@media(prefers-reduced-motion:reduce){.terra-header__dropdown{transition:none}}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.terra-header-root{grid-column:1/-1}.terra-announcement{background:var(--terra-announcement-bg,#c4592e);color:var(--terra-announcement-fg,#fff);font-size:9px;font-weight:700;letter-spacing:.025em;line-height:1.25;padding:4px 20px;text-align:center;text-transform:uppercase}.terra-header{background:var(--terra-header-bg,#fff);border-bottom:1px solid var(--terra-header-border,#e9e4dd);color:var(--terra-header-fg,#2b2925);position:relative;z-index:20}.terra-header__inner{align-items:center;display:grid;grid-template-columns:max-content minmax(340px,1fr) max-content;margin:0 auto;max-width:var(--terra-header-max-width,1440px);min-height:var(--terra-header-min-height,58px);padding:var(--terra-header-pad-top,0) var(--terra-header-pad-right,60px) var(--terra-header-pad-bottom,0) var(--terra-header-pad-left,60px)}.terra-wordmark,.terra-header__nav a,.terra-header__icon{color:inherit;text-decoration:none}.terra-wordmark{align-items:baseline;display:inline-flex;font-family:Arial,sans-serif;font-size:17px;font-weight:800;letter-spacing:-.06em;line-height:1;white-space:nowrap}.terra-wordmark em{color:var(--terra-header-accent,#c4592e);font-size:16px;font-style:normal;font-weight:400;letter-spacing:-.055em;margin-left:6px}.terra-header__nav{align-items:center;display:flex;gap:var(--terra-menu-gap,clamp(18px,2vw,34px));justify-content:flex-start;margin-left:var(--terra-menu-margin-left,clamp(26px,4.5vw,76px))}.terra-header__nav-item{position:relative}.terra-header__nav a{display:block;font-family:var(--font-primary--family);font-size:var(--terra-menu-font-size,11px);font-weight:600;line-height:var(--terra-header-min-height,58px);white-space:nowrap}.terra-header__nav>a:hover,.terra-header__nav-item>a:hover,.terra-header__nav a:focus-visible{color:var(--terra-header-accent,#c4592e)}.terra-header__dropdown{background:var(--terra-header-bg,#fff);border:1px solid var(--terra-header-border,#e9e4dd);box-shadow:0 14px 26px rgb(43 41 37 / 10%);left:-16px;min-width:180px;opacity:0;padding:8px 0;pointer-events:none;position:absolute;top:calc(100% - 1px);transform:translateY(-5px);transition:opacity 160ms ease,transform 160ms ease}.terra-header__dropdown a{font-size:12px;line-height:1.3;padding:10px 16px}.terra-header__nav-item--has-children:hover .terra-header__dropdown,.terra-header__nav-item--has-children:focus-within .terra-header__dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}.terra-header__actions{align-items:center;display:flex;gap:16px}.terra-header__search{align-items:center;background:var(--terra-search-bg,#f8f6f3);display:flex;height:30px;padding:0 10px;width:var(--terra-search-width,150px)}.terra-header__search svg{fill:none;flex:0 0 13px;height:13px;stroke:#57514b;stroke-linecap:round;stroke-width:2;width:13px}.terra-header__search input{background:transparent;border:0;color:var(--terra-header-fg,#2b2925);font-size:10px;height:100%;margin-left:7px;min-width:0;outline:0;padding:0;width:100%}.terra-header__search:focus-within{outline:1px solid var(--terra-header-accent,#c4592e)}.terra-header__search input::placeholder{color:#8b857e;opacity:1}.terra-header__icon{align-items:center;display:inline-flex;height:24px;justify-content:center;position:relative;width:16px}.terra-header__icon svg{height:16px;width:16px}.terra-header__icon:hover,.terra-header__icon:focus-visible{color:var(--terra-header-accent,#c4592e)}.terra-header__cart-count{align-items:center;background:var(--terra-header-accent,#c4592e);border-radius:50%;color:#fff;display:flex;font-family:Arial,sans-serif;font-size:8px;font-weight:700;height:13px;justify-content:center;left:11px;line-height:1;min-width:13px;position:absolute;top:0}.terra-header__drawer{display:none}@media(max-width:900px){.terra-header__inner{grid-template-columns:max-content 1fr max-content;padding:var(--terra-header-pad-top,0) 20px var(--terra-header-pad-bottom,0)}.terra-header__drawer{display:block;margin-right:14px}.terra-header__drawer summary{cursor:pointer;display:grid;gap:4px;list-style:none;width:20px}.terra-header__drawer summary::-webkit-details-marker{display:none}.terra-header__drawer summary span{background:currentcolor;display:block;height:1px;width:19px}.terra-header__mobile-nav{background:var(--terra-header-bg,#fff);border:1px solid var(--terra-header-border,#e9e4dd);box-shadow:0 14px 26px rgb(43 41 37 / 10%);left:0;min-width:250px;padding:16px 0;position:absolute;top:46px}.terra-header__mobile-nav a{color:inherit;display:block;font-size:14px;padding:10px 20px;text-decoration:none}.terra-header__mobile-nav .terra-header__mobile-child{color:#77716b;font-size:13px;padding-left:36px}.terra-header__nav{display:none}.terra-wordmark{justify-self:center}.terra-header__actions{gap:11px}}@media(max-width:560px){.terra-announcement{font-size:8px;padding-block:5px}.terra-header__inner{min-height:54px}.terra-header__search{background:transparent;padding:0;width:18px}.terra-header__search input{display:none}.terra-header__search svg{flex-basis:16px;height:16px;width:16px}.terra-wordmark{font-size:15px}.terra-wordmark em{font-size:14px;margin-left:4px}}@media(prefers-reduced-motion:reduce){.terra-header__dropdown{transition:none}}
 {% endstylesheet %}
 
 {% schema %}
@@ -66,7 +108,30 @@
     { "type": "text", "id": "announcement_text", "label": "Announcement", "default": "Free shipping on domestic orders over $150 — handcrafted in small batches" },
     { "type": "link_list", "id": "menu", "label": "Main menu", "info": "If no menu is selected, the default Terra links below are shown." },
     { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
-    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search collections..." }
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search collections..." },
+    { "type": "header", "content": "Layout" },
+    { "type": "paragraph", "content": "Adjust the header spacing and size. The padding values apply to the header content area." },
+    { "type": "range", "id": "header_padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "header_padding_right", "label": "Padding right", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "header_padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "header_padding_left", "label": "Padding left", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 60 },
+    { "type": "range", "id": "header_min_height", "label": "Header height", "min": 40, "max": 120, "step": 1, "unit": "px", "default": 58 },
+    { "type": "range", "id": "header_max_width", "label": "Maximum content width", "min": 800, "max": 1800, "step": 10, "unit": "px", "default": 1440 },
+    { "type": "header", "content": "Menu" },
+    { "type": "range", "id": "menu_gap", "label": "Menu item spacing (gap)", "min": 0, "max": 80, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "menu_margin_left", "label": "Menu left margin", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "menu_font_size", "label": "Menu font size", "min": 8, "max": 32, "step": 1, "unit": "px", "default": 11 },
+    { "type": "header", "content": "Search" },
+    { "type": "range", "id": "search_width", "label": "Search field width", "min": 80, "max": 400, "step": 5, "unit": "px", "default": 150 },
+    { "type": "header", "content": "Colors" },
+    { "type": "checkbox", "id": "use_custom_colors", "label": "Use custom colors", "default": false, "info": "Enable to apply the custom colors below. When off, the default Terra Studios colors are used." },
+    { "type": "color", "id": "header_bg_color", "label": "Header background", "default": "#ffffff" },
+    { "type": "color", "id": "header_text_color", "label": "Header text", "default": "#2b2925" },
+    { "type": "color", "id": "header_accent_color", "label": "Accent color (hover, links & badges)", "default": "#c4592e" },
+    { "type": "color", "id": "header_border_color", "label": "Header border", "default": "#e9e4dd" },
+    { "type": "color", "id": "search_bg_color", "label": "Search field background", "default": "#f8f6f3" },
+    { "type": "color", "id": "announcement_bg_color", "label": "Announcement bar background", "default": "#c4592e" },
+    { "type": "color", "id": "announcement_text_color", "label": "Announcement bar text", "default": "#ffffff" }
   ],
   "blocks": [{ "type": "link", "name": "Default navigation link", "settings": [{ "type": "text", "id": "label", "label": "Label", "default": "New Arrivals" }, { "type": "url", "id": "url", "label": "Link" }] }],
   "max_blocks": 6
