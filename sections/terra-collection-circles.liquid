@@ -1,0 +1,39 @@
+{% style %}
+  #TerraCollectionCircles-{{ section.id }} { --terra-collections-bg: {{ section.settings.background }}; --terra-collections-text: {{ section.settings.text_color }}; --terra-collections-accent: {{ section.settings.accent_color }}; --terra-collections-padding: {{ section.settings.padding }}px; --terra-collection-count: {{ section.blocks.size }}; }
+{% endstyle %}
+
+{{ 'collection-circles.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraCollectionCircles-{{ section.id }}" class="terra-collection-circles">
+  {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
+  <div class="terra-collection-circles__grid">
+    {% for block in section.blocks %}
+      <a class="terra-collection-circles__item" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+        <span class="terra-collection-circles__image">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 360 | image_tag: widths: '120, 180, 240, 360', sizes: '(min-width: 750px) 150px, 100px', loading: 'lazy', alt: block.settings.title }}
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag }}
+          {% endif %}
+        </span>
+        <span>{{ block.settings.title | escape }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra collection circles",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Browse by collection" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 140, "step": 2, "unit": "px", "default": 72 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#2b2925" },
+    { "type": "color", "id": "accent_color", "label": "Hover color", "default": "#c4592e" }
+  ],
+  "blocks": [{ "type": "collection_circle", "name": "Collection", "settings": [{ "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "title", "label": "Title", "default": "Dinnerware" }, { "type": "url", "id": "link", "label": "Link" }] }],
+  "max_blocks": 8,
+  "presets": [{ "name": "Terra collection circles", "blocks": [{ "type": "collection_circle", "settings": { "title": "Dinnerware" } }, { "type": "collection_circle", "settings": { "title": "Drinkware" } }, { "type": "collection_circle", "settings": { "title": "Serving Bowls" } }, { "type": "collection_circle", "settings": { "title": "Vases" } }, { "type": "collection_circle", "settings": { "title": "Accessories" } }] }]
+}
+{% endschema %}
