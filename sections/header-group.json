@@ -6,11 +6,11 @@
     "header": {
       "type": "header",
       "blocks": {
-        "new_arrivals": { "type": "link", "settings": { "label": "New Arrivals", "url": "/collections/new-arrivals" } },
-        "tableware": { "type": "link", "settings": { "label": "Tableware", "url": "/collections/dinnerware" } },
-        "vases_decor": { "type": "link", "settings": { "label": "Vases & Decor", "url": "/collections/vases" } },
-        "our_story": { "type": "link", "settings": { "label": "Our Story", "url": "/pages/our-story" } },
-        "journal": { "type": "link", "settings": { "label": "Journal", "url": "/blogs/journal" } }
+        "new_arrivals": { "type": "terra_navigation_link", "settings": { "label": "New Arrivals", "url": "/collections/new-arrivals" } },
+        "tableware": { "type": "terra_navigation_link", "settings": { "label": "Tableware", "url": "/collections/dinnerware" } },
+        "vases_decor": { "type": "terra_navigation_link", "settings": { "label": "Vases & Decor", "url": "/collections/vases" } },
+        "our_story": { "type": "terra_navigation_link", "settings": { "label": "Our Story", "url": "/pages/our-story" } },
+        "journal": { "type": "terra_navigation_link", "settings": { "label": "Journal", "url": "/blogs/journal" } }
       },
       "block_order": ["new_arrivals", "tableware", "vases_decor", "our_story", "journal"],
       "settings": {

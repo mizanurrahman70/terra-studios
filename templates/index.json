@@ -9,12 +9,24 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero": {
+      "type": "terra-hero",
+      "blocks": {
+        "lead_free": { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
+        "batch": { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
+      },
+      "block_order": ["lead_free", "batch"],
+      "settings": {
+        "image_position": "right",
+        "eyebrow": "The autumn collection",
+        "heading": "Tactile stoneware\nshaped by hand",
+        "text": "Organic curves, textured glazes, and timeless forms crafted to bring warmth and\neveryday beauty to your morning ritual.",
+        "primary_label": "Shop collection",
+        "primary_link": "/collections/all",
+        "secondary_label": "Watch the process",
+        "secondary_link": "/pages/our-story"
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["hero"]
 }
