@@ -1,0 +1,63 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+
+<section class="terra-hero terra-hero--{{ section.settings.image_position }}">
+  <div class="terra-hero__copy">
+    {% if section.settings.eyebrow != blank %}
+      <p class="terra-hero__eyebrow"><span></span>{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+
+    <h1>{{ section.settings.heading | escape | newline_to_br }}</h1>
+
+    {% if section.settings.text != blank %}
+      <div class="terra-hero__text">{{ section.settings.text | escape | newline_to_br }}</div>
+    {% endif %}
+
+    <div class="terra-hero__actions">
+      {% if section.settings.primary_label != blank %}
+        <a class="terra-hero__button terra-hero__button--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label | escape }}</a>
+      {% endif %}
+      {% if section.settings.secondary_label != blank %}
+        <a class="terra-hero__button terra-hero__button--secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="terra-hero__proof" aria-label="Studio details">
+        {% for block in section.blocks %}
+          <div class="terra-hero__proof-item" {{ block.shopify_attributes }}>
+            <strong>{{ block.settings.heading | escape }}</strong>
+            <span>{{ block.settings.text | escape }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="terra-hero__media">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1800 | image_tag: class: 'terra-hero__image', widths: '600, 800, 1100, 1400, 1800', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image.alt }}
+    {% else %}
+      {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "right", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The autumn collection" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Tactile stoneware\nshaped by hand" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Organic curves, textured glazes, and timeless forms crafted to bring warmth and\neveryday beauty to your morning ritual." },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop collection" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Watch the process" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+  ],
+  "blocks": [{ "type": "proof", "name": "Proof point", "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "100%" }, { "type": "text", "id": "text", "label": "Text", "default": "Lead-Free Clay" }] }],
+  "max_blocks": 3,
+  "presets": [{ "name": "Terra hero", "blocks": [{ "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } }, { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }] }]
+}
+{% endschema %}

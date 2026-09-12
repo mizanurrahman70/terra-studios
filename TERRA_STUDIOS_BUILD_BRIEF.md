@@ -133,7 +133,7 @@ Product descriptions, variant options, material, and weights are supplied in the
 
 ## 7. File and CSS plan
 
-Keep shared styling centralized. Create one theme stylesheet at `assets/terra-studios.css`; load it from `layout/theme.liquid` after `critical.css`. Do not place a full duplicate CSS system inside every section. Section-specific CSS belongs in a short `{% style %}` block only when it cannot be shared.
+Keep shared styling centralized in `assets/terra-studios.css`; load it from `layout/theme.liquid` after `critical.css`. Place each section’s component-specific styles in its own asset (for example `assets/hero.css`) and load that asset from the matching Liquid section. Do not duplicate global tokens or shared primitives across those section assets.
 
 ```text
 assets/
@@ -154,6 +154,10 @@ templates/
 ```
 
 Extend `config/settings_schema.json` with a **Terra Studios** settings group for heading font, body font, rust accent, oatmeal background, charcoal text, and social links. Expose those values as CSS custom properties from `snippets/css-variables.liquid`; keep the given values as defaults.
+
+### CSS asset rule
+
+Keep custom CSS out of Liquid section files. Each custom section must own a clearly named stylesheet in `assets/` and load it with Shopify's `stylesheet_tag` at the top of that section. For example, `sections/terra-hero.liquid` loads `assets/hero.css`. Put shared tokens, reset rules, and cross-section primitives in a separate global asset; do not duplicate those rules in every section asset.
 
 ## 8. Implementation requirements
 

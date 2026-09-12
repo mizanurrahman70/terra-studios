@@ -9,12 +9,72 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero": {
+      "type": "terra-hero",
+      "blocks": {
+        "lead_free": { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
+        "batch": { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
+      },
+      "block_order": ["lead_free", "batch"],
+      "settings": {
+        "image_position": "right",
+        "eyebrow": "The autumn collection",
+        "heading": "Tactile stoneware\nshaped by hand",
+        "text": "Organic curves, textured glazes, and timeless forms crafted to bring warmth and\neveryday beauty to your morning ritual.",
+        "primary_label": "Shop collection",
+        "primary_link": "/collections/all",
+        "secondary_label": "Watch the process",
+        "secondary_link": "/pages/our-story"
+      }
+    },
+    "collection_circles": {
+      "type": "terra-collection-circles",
+      "blocks": {
+        "dinnerware": { "type": "collection_circle", "settings": { "title": "Dinnerware", "link": "/collections/dinnerware" } },
+        "drinkware": { "type": "collection_circle", "settings": { "title": "Drinkware", "link": "/collections/drinkware" } },
+        "serving_bowls": { "type": "collection_circle", "settings": { "title": "Serving Bowls", "link": "/collections/serving-bowls" } },
+        "vases": { "type": "collection_circle", "settings": { "title": "Vases", "link": "/collections/vases" } },
+        "accessories": { "type": "collection_circle", "settings": { "title": "Accessories", "link": "/collections/accessories" } }
+      },
+      "block_order": ["dinnerware", "drinkware", "serving_bowls", "vases", "accessories"],
+      "settings": { "heading": "Browse by collection", "padding": 72, "background": "#ffffff", "text_color": "#2b2925", "accent_color": "#c4592e" }
+    },
+    "trust_bar": {
+      "type": "terra-trust-bar",
+      "blocks": {
+        "sustainable": { "type": "trust_point", "settings": { "icon": "leaf", "heading": "Sustainably Sourced", "text": "All clay is sourced from local, ethical mineral reserves." } },
+        "durability": { "type": "trust_point", "settings": { "icon": "shield", "heading": "Kiln-Fired Durability", "text": "Twice vitrified at 2200°F for microwave & dishwasher safety." } },
+        "artisan": { "type": "trust_point", "settings": { "icon": "hands", "heading": "Direct Artisan Trade", "text": "Ensuring fair living wages for every studio apprentice." } },
+        "packaging": { "type": "trust_point", "settings": { "icon": "package", "heading": "Conscious Packaging", "text": "100% plastic-free, recyclable, and compostable box materials." } }
+      },
+      "block_order": ["sustainable", "durability", "artisan", "packaging"],
+      "settings": { "padding": 46, "background": "#f8f7f4", "text_color": "#2b2925", "muted_color": "#77716b", "accent_color": "#c4592e" }
+    },
+    "featured_products": {
+      "type": "terra-featured-products",
+      "blocks": {
+        "carafe": { "type": "manual_product", "settings": { "title": "Oatmeal Carafe & Cup Set", "price": "$85.00", "compare_price": "$110.00", "badge": "save" } },
+        "salad_bowl": { "type": "manual_product", "settings": { "title": "Stoneware Salad Bowl", "price": "$64.00", "badge": "none" } },
+        "espresso_mug": { "type": "manual_product", "settings": { "title": "Hand-Thrown Espresso Mug", "price": "$28.00", "badge": "none" } },
+        "ochre_vase": { "type": "manual_product", "settings": { "title": "Sculptural Ochre Vase", "price": "$120.00", "badge": "soldout" } }
+      },
+      "block_order": ["carafe", "salad_bowl", "espresso_mug", "ochre_vase"],
+      "settings": {
+        "collection": "best-sellers",
+        "eyebrow": "Best sellers",
+        "heading": "Featured Ceramics",
+        "button_label": "View all products",
+        "button_link": "/collections/best-sellers",
+        "products_to_show": 4,
+        "show_quick_add": true,
+        "show_badges": true,
+        "padding": 88,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["hero", "collection_circles", "trust_bar", "featured_products"]
 }

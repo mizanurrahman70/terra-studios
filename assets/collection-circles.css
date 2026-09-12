@@ -1,0 +1,9 @@
+.terra-collection-circles { background: var(--terra-collections-bg); color: var(--terra-collections-text); grid-column: 1 / -1; padding: var(--terra-collections-padding) clamp(20px, 5vw, 82px); text-align: center; }
+.terra-collection-circles h2 { font-size: clamp(19px, 1.7vw, 25px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; margin: 0; text-transform: uppercase; }
+.terra-collection-circles__grid { align-items: start; display: grid; gap: 30px; grid-template-columns: repeat(var(--terra-collection-count, 5), minmax(0, 1fr)); margin: 36px auto 0; max-width: 1300px; }
+.terra-collection-circles__item { color: inherit; display: grid; font-size: 14px; font-weight: 600; gap: 16px; justify-items: center; text-decoration: none; }
+.terra-collection-circles__image { aspect-ratio: 1; border-radius: 50%; display: block; overflow: hidden; width: min(100%, 132px); }
+.terra-collection-circles__image img, .terra-collection-circles__image svg { height: 100%; object-fit: cover; width: 100%; }
+.terra-collection-circles__item:hover, .terra-collection-circles__item:focus-visible { color: var(--terra-collections-accent); }
+.terra-collection-circles__item:focus-visible { outline: 2px solid var(--terra-collections-accent); outline-offset: 6px; }
+@media (max-width: 749px) { .terra-collection-circles { padding-block: max(42px, var(--terra-collections-padding)); } .terra-collection-circles__grid { gap: 30px 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 30px; } .terra-collection-circles__item { font-size: 12px; gap: 11px; } .terra-collection-circles__image { width: min(100%, 95px); } }

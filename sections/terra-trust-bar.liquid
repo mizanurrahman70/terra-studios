@@ -1,0 +1,39 @@
+{% style %}
+  #TerraTrustBar-{{ section.id }} { --terra-trust-bg: {{ section.settings.background }}; --terra-trust-text: {{ section.settings.text_color }}; --terra-trust-muted: {{ section.settings.muted_color }}; --terra-trust-accent: {{ section.settings.accent_color }}; --terra-trust-padding: {{ section.settings.padding }}px; --terra-trust-count: {{ section.blocks.size }}; }
+{% endstyle %}
+
+{{ 'trust-bar.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraTrustBar-{{ section.id }}" class="terra-trust-bar">
+  <div class="terra-trust-bar__grid">
+    {% for block in section.blocks %}
+      <article class="terra-trust-bar__item" {{ block.shopify_attributes }}>
+        <span class="terra-trust-bar__icon" aria-hidden="true">
+          {% case block.settings.icon %}
+            {% when 'leaf' %}<svg viewBox="0 0 24 24"><path d="M20 4C11 4 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16Z"/><path d="M4 20c3-4 6-6 11-8"/></svg>
+            {% when 'shield' %}<svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Z"/></svg>
+            {% when 'hands' %}<svg viewBox="0 0 24 24"><path d="m5 12 3 3 3-3 2 2 3-3 3 3-5 5H9l-4-4v-3Z"/><path d="m4 8 3 3M17 7l3 3"/></svg>
+            {% else %}<svg viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4V7Z"/><path d="m4 7 8 4 8-4M12 11v10"/></svg>
+          {% endcase %}
+        </span>
+        <div><h2>{{ block.settings.heading | escape }}</h2><p>{{ block.settings.text | escape }}</p></div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra trust bar",
+  "settings": [
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 20, "max": 100, "step": 2, "unit": "px", "default": 46 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f8f7f4" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Icon color", "default": "#c4592e" }
+  ],
+  "blocks": [{ "type": "trust_point", "name": "Trust point", "settings": [{ "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [{ "value": "leaf", "label": "Leaf" }, { "value": "shield", "label": "Shield" }, { "value": "hands", "label": "Hands" }, { "value": "package", "label": "Package" }] }, { "type": "text", "id": "heading", "label": "Heading", "default": "Sustainably Sourced" }, { "type": "textarea", "id": "text", "label": "Text", "default": "All clay is sourced from local, ethical mineral reserves." }] }],
+  "max_blocks": 6,
+  "presets": [{ "name": "Terra trust bar", "blocks": [{ "type": "trust_point", "settings": { "icon": "leaf", "heading": "Sustainably Sourced", "text": "All clay is sourced from local, ethical mineral reserves." } }, { "type": "trust_point", "settings": { "icon": "shield", "heading": "Kiln-Fired Durability", "text": "Twice vitrified at 2200°F for microwave & dishwasher safety." } }, { "type": "trust_point", "settings": { "icon": "hands", "heading": "Direct Artisan Trade", "text": "Ensuring fair living wages for every studio apprentice." } }, { "type": "trust_point", "settings": { "icon": "package", "heading": "Conscious Packaging", "text": "100% plastic-free, recyclable, and compostable box materials." } }] }]
+}
+{% endschema %}
