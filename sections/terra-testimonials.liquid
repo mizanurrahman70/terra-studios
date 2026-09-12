@@ -1,0 +1,41 @@
+{% style %}
+  #TerraTestimonials-{{ section.id }} { --terra-testimonials-bg: {{ section.settings.background }}; --terra-testimonials-text: {{ section.settings.text_color }}; --terra-testimonials-muted: {{ section.settings.muted_color }}; --terra-testimonials-accent: {{ section.settings.accent_color }}; --terra-testimonials-padding: {{ section.settings.padding }}px; }
+{% endstyle %}
+
+{{ 'testimonials.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraTestimonials-{{ section.id }}" class="terra-testimonials">
+  <header class="terra-testimonials__heading">
+    {% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
+  </header>
+  <div class="terra-testimonials__grid">
+    {% for block in section.blocks %}
+      <figure class="terra-testimonial" {{ block.shopify_attributes }}>
+        <div class="terra-testimonial__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+          {% for star in (1..block.settings.rating) %}<span aria-hidden="true">☆</span>{% endfor %}
+        </div>
+        <blockquote>“{{ block.settings.quote | escape }}”</blockquote>
+        <figcaption><strong>{{ block.settings.name | escape }}</strong>{% if block.settings.verified %}<span><b aria-hidden="true">✓</b> Verified buyer</span>{% endif %}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Community feedback" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by Cook & Host" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 40, "max": 160, "step": 2, "unit": "px", "default": 104 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Muted text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "blocks": [{ "type": "testimonial", "name": "Testimonial", "settings": [{ "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "quote", "label": "Review", "default": "The oatmeal carafe is even more beautiful in person. The glaze has subtle iron specks that catch the morning light beautifully." }, { "type": "text", "id": "name", "label": "Customer name", "default": "Helena G." }, { "type": "checkbox", "id": "verified", "label": "Show verified buyer", "default": true }] }],
+  "max_blocks": 6,
+  "presets": [{ "name": "Terra testimonials", "blocks": [{ "type": "testimonial", "settings": { "name": "Helena G.", "quote": "The oatmeal carafe is even more beautiful in person. The glaze has subtle iron specks that catch the morning light beautifully." } }, { "type": "testimonial", "settings": { "name": "Marcus K.", "quote": "Microwave safe and solid weight! We replaced all our generic dinnerware with the sand beige set and we couldn't be happier." } }, { "type": "testimonial", "settings": { "name": "Sarah D.", "quote": "Extremely well-packaged and arrived in eco-friendly wraps. Customer service is stellar. A true premium Shopify experience." } }] }]
+}
+{% endschema %}
