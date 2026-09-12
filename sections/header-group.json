@@ -5,14 +5,6 @@
   "sections": {
     "header": {
       "type": "header",
-      "blocks": {
-        "new_arrivals": { "type": "terra_navigation_link", "settings": { "label": "New Arrivals", "url": "/collections/new-arrivals" } },
-        "tableware": { "type": "terra_navigation_link", "settings": { "label": "Tableware", "url": "/collections/dinnerware" } },
-        "vases_decor": { "type": "terra_navigation_link", "settings": { "label": "Vases & Decor", "url": "/collections/vases" } },
-        "our_story": { "type": "terra_navigation_link", "settings": { "label": "Our Story", "url": "/pages/our-story" } },
-        "journal": { "type": "terra_navigation_link", "settings": { "label": "Journal", "url": "/blogs/journal" } }
-      },
-      "block_order": ["new_arrivals", "tableware", "vases_decor", "our_story", "journal"],
       "settings": {
         "show_announcement": true,
         "announcement_text": "Free shipping on domestic orders over $150 — handcrafted in small batches",

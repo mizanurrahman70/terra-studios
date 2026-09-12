@@ -1,0 +1,44 @@
+{% style %}
+  #TerraHeritage-{{ section.id }} { --terra-heritage-bg: {{ section.settings.background }}; --terra-heritage-text: {{ section.settings.text_color }}; --terra-heritage-muted: {{ section.settings.muted_color }}; --terra-heritage-accent: {{ section.settings.accent_color }}; --terra-heritage-padding: {{ section.settings.padding }}px; }
+{% endstyle %}
+
+{{ 'heritage-split.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraHeritage-{{ section.id }}" class="terra-heritage terra-heritage--{{ section.settings.image_position }}">
+  <div class="terra-heritage__media">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1600 | image_tag: class: 'terra-heritage__image', widths: '600, 800, 1100, 1600', sizes: '(min-width: 900px) 45vw, 100vw', loading: 'lazy', alt: section.settings.image.alt }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'terra-heritage__placeholder' }}
+    {% endif %}
+  </div>
+  <div class="terra-heritage__content">
+    {% if section.settings.eyebrow != blank %}<p class="terra-heritage__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape | newline_to_br }}</h2>{% endif %}
+    {% if section.settings.text != blank %}<div class="terra-heritage__text">{{ section.settings.text | escape | newline_to_br }}</div>{% endif %}
+    {% if section.settings.quote != blank %}<blockquote>{{ section.settings.quote | escape }}</blockquote>{% endif %}
+    {% if section.settings.button_label != blank %}<a class="terra-heritage__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra heritage split",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "image_position", "label": "Image position", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our heritage" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Designed for durability, styled for\nlife." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every piece from Terra Studios is hand-pressed, glazed and fired in local workshops. We\ncreate functional tableware that elevates mundane acts into meditative moments. Our\nstoneware is built thick to resist chipping, yet refined enough to act as permanent table\nsculpture." },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "These are the pieces that make you wake up excited to brew your morning coffee." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Meet our apprentices" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 20, "max": 140, "step": 2, "unit": "px", "default": 82 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f8f7f4" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "presets": [{ "name": "Terra heritage split" }]
+}
+{% endschema %}

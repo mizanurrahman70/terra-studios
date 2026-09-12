@@ -74,7 +74,24 @@
         "muted_color": "#77716b",
         "accent_color": "#c4592e"
       }
+    },
+    "heritage_split": {
+      "type": "terra-heritage-split",
+      "settings": {
+        "image_position": "left",
+        "eyebrow": "Our heritage",
+        "heading": "Designed for durability, styled for\nlife.",
+        "text": "Every piece from Terra Studios is hand-pressed, glazed and fired in local workshops. We\ncreate functional tableware that elevates mundane acts into meditative moments. Our\nstoneware is built thick to resist chipping, yet refined enough to act as permanent table\nsculpture.",
+        "quote": "These are the pieces that make you wake up excited to brew your morning coffee.",
+        "button_label": "Meet our apprentices",
+        "button_link": "/pages/our-story",
+        "padding": 82,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
     }
   },
-  "order": ["hero", "collection_circles", "trust_bar", "featured_products"]
+  "order": ["hero", "collection_circles", "trust_bar", "featured_products", "heritage_split"]
 }

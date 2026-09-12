@@ -1,0 +1,16 @@
+.terra-heritage { background: var(--terra-heritage-bg); color: var(--terra-heritage-text); display: grid; grid-column: 1 / -1; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.terra-heritage--right .terra-heritage__media { order: 2; }
+.terra-heritage--right .terra-heritage__content { order: 1; }
+.terra-heritage__media { min-height: 600px; overflow: hidden; }
+.terra-heritage__image, .terra-heritage__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+.terra-heritage__placeholder { background: #d8c5ae; fill: #825d3f; }
+.terra-heritage__content { align-items: flex-start; display: flex; flex-direction: column; justify-content: center; padding: var(--terra-heritage-padding) clamp(42px, 5.5vw, 110px); }
+.terra-heritage__eyebrow { color: var(--terra-heritage-accent); font-size: 10px; font-weight: 800; letter-spacing: .02em; margin: 0 0 28px; text-transform: uppercase; }
+.terra-heritage h2 { font-size: clamp(36px, 3.45vw, 54px); font-weight: 800; letter-spacing: -.055em; line-height: .98; margin: 0; max-width: 690px; }
+.terra-heritage__text { color: var(--terra-heritage-muted); font-size: 16px; line-height: 1.64; margin-top: 30px; max-width: 700px; }
+.terra-heritage blockquote { border-left: 3px solid var(--terra-heritage-accent); font-size: 15px; line-height: 1.5; margin: 48px 0 0; max-width: 680px; padding-left: 17px; }
+.terra-heritage__button { background: var(--terra-heritage-accent); color: #fff; font-size: 12px; font-weight: 800; margin-top: 46px; padding: 16px 28px; text-decoration: none; text-transform: uppercase; }
+.terra-heritage__button:hover, .terra-heritage__button:focus-visible { filter: brightness(.93); }
+.terra-heritage__button:focus-visible { outline: 2px solid var(--terra-heritage-text); outline-offset: 3px; }
+@media (max-width: 899px) { .terra-heritage, .terra-heritage--right { grid-template-columns: 1fr; } .terra-heritage__media, .terra-heritage--right .terra-heritage__media { min-height: clamp(340px, 72vw, 620px); order: 1; } .terra-heritage__content, .terra-heritage--right .terra-heritage__content { order: 2; padding: 64px 28px; } }
+@media (max-width: 520px) { .terra-heritage__content { padding: 50px 20px; } .terra-heritage h2 { font-size: 36px; } .terra-heritage__text { font-size: 15px; } .terra-heritage blockquote { margin-top: 34px; } .terra-heritage__button { margin-top: 34px; } }

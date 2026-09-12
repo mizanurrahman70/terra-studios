@@ -61,7 +61,11 @@
               {% for child_link in link.links %}<a class="terra-header__mobile-child" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endfor %}
             {% endfor %}
           {% else %}
-            {% for block in section.blocks %}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endfor %}
+            <a href="/collections/new-arrivals">New Arrivals</a>
+            <a href="/collections/dinnerware">Tableware</a>
+            <a href="/collections/vases">Vases &amp; Decor</a>
+            <a href="/pages/our-story">Our Story</a>
+            <a href="/blogs/journal">Journal</a>
           {% endif %}
         </nav>
       </details>
@@ -77,7 +81,11 @@
             </div>
           {% endfor %}
         {% else %}
-          {% for block in section.blocks %}<a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endfor %}
+          <a href="/collections/new-arrivals">New Arrivals</a>
+          <a href="/collections/dinnerware">Tableware</a>
+          <a href="/collections/vases">Vases &amp; Decor</a>
+          <a href="/pages/our-story">Our Story</a>
+          <a href="/blogs/journal">Journal</a>
         {% endif %}
       </nav>
 
@@ -132,8 +140,6 @@
     { "type": "color", "id": "search_bg_color", "label": "Search field background", "default": "#f8f6f3" },
     { "type": "color", "id": "announcement_bg_color", "label": "Announcement bar background", "default": "#c4592e" },
     { "type": "color", "id": "announcement_text_color", "label": "Announcement bar text", "default": "#ffffff" }
-  ],
-  "blocks": [{ "type": "terra_navigation_link", "name": "Default navigation link", "settings": [{ "type": "text", "id": "label", "label": "Label", "default": "New Arrivals" }, { "type": "url", "id": "url", "label": "Link" }] }],
-  "max_blocks": 6
+  ]
 }
 {% endschema %}
