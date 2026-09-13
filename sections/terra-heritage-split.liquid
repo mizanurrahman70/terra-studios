@@ -18,6 +18,7 @@
     {% if section.settings.text != blank %}<div class="terra-heritage__text">{{ section.settings.text | escape | newline_to_br }}</div>{% endif %}
     {% if section.settings.quote != blank %}<blockquote>{{ section.settings.quote | escape }}</blockquote>{% endif %}
     {% if section.settings.button_label != blank %}<a class="terra-heritage__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>{% endif %}
+    {% content_for 'blocks' %}
   </div>
 </section>
 
@@ -39,6 +40,8 @@
     { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
     { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
   ],
+  "blocks": [{ "type": "@theme" }],
+  "max_blocks": 8,
   "presets": [{ "name": "Terra heritage split" }]
 }
 {% endschema %}

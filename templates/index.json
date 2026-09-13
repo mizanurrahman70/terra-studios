@@ -1,19 +1,12 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "sections": {
     "hero": {
       "type": "terra-hero",
       "blocks": {
         "lead_free": { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
-        "batch": { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
+        "batch": { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } },
+        "heading": { "type": "heading", "static": true, "settings": { "heading_tag": "h1", "heading_size_desktop": "display", "heading_size_mobile": "display", "width": "custom", "custom_width": 650, "alignment": "left" } }
       },
       "block_order": ["lead_free", "batch"],
       "settings": {

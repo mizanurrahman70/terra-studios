@@ -17,6 +17,7 @@
       {% if form.errors %}<p class="terra-newsletter__message terra-newsletter__message--error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{% endif %}
       {% if form.posted_successfully? %}<p class="terra-newsletter__message">{{ section.settings.success_message | escape }}</p>{% endif %}
     {% endform %}
+    {% content_for 'blocks' %}
   </div>
 </section>
 
@@ -36,6 +37,8 @@
     { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
     { "type": "color", "id": "accent_color", "label": "Button color", "default": "#c4592e" }
   ],
+  "blocks": [{ "type": "@theme" }],
+  "max_blocks": 8,
   "presets": [{ "name": "Terra newsletter signup" }]
 }
 {% endschema %}

@@ -2,10 +2,11 @@
 .terra-hero--left .terra-hero__copy { order: 2; }
 .terra-hero--left .terra-hero__media { order: 1; }
 .terra-hero__copy { align-items: flex-start; display: flex; flex-direction: column; justify-content: center; padding: clamp(56px, 8vw, 130px) clamp(36px, 6vw, 86px); }
-.terra-hero__eyebrow { align-items: center; color: #c4592e; display: flex; font-size: 11px; font-weight: 700; gap: 10px; margin-bottom: 28px; text-transform: uppercase; }
-.terra-hero__eyebrow span { background: currentcolor; display: block; height: 1px; width: 24px; }
-.terra-hero h1 { color: #20201f; font-family: var(--font-primary--family); font-size: clamp(42px, 4.2vw, 66px); font-weight: 800; letter-spacing: -.055em; line-height: .97; margin: 0; max-width: 650px; }
-.terra-hero__text { color: #706b66; font-size: 17px; line-height: 1.55; margin-top: 28px; max-width: 650px; }
+.terra-hero .heading-group { max-width: 650px; width: 100%; }
+.terra-hero .heading-group__eyebrow { align-items: center; display: flex; gap: 10px; margin-bottom: 28px; }
+.terra-hero .heading-group__eyebrow::before { background: currentcolor; content: ''; display: block; height: 1px; width: 24px; }
+.terra-hero .heading-group__text { color: #706b66; font-size: 17px; line-height: 1.55; margin-top: 28px; max-width: 650px; }
+.terra-hero__proof [data-block-type='heading'] { display: none; }
 .terra-hero__actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 38px; }
 .terra-hero__button { align-items: center; display: inline-flex; font-size: 12px; font-weight: 700; justify-content: center; min-height: 45px; padding: 0 28px; text-decoration: none; text-transform: uppercase; }
 .terra-hero__button--primary { background: #c4592e; color: #fff; }
@@ -25,13 +26,11 @@
   .terra-hero { grid-template-columns: 1fr; }
   .terra-hero__copy { order: 2; padding: 56px 28px; }
   .terra-hero__media { min-height: clamp(300px, 65vw, 530px); order: 1; }
-  .terra-hero__text { font-size: 16px; }
   .terra-hero__proof { margin-top: 36px; }
 }
 
 @media (max-width: 520px) {
   .terra-hero__copy { padding: 44px 20px; }
-  .terra-hero h1 { font-size: 42px; }
   .terra-hero__actions { gap: 10px; margin-top: 30px; }
   .terra-hero__button { flex: 1; font-size: 11px; padding: 0 12px; }
   .terra-hero__proof { padding: 15px 5px; }

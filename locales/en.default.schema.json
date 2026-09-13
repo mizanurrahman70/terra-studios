@@ -16,6 +16,7 @@
     "fonts": "Fonts",
     "footer": "Footer",
     "group": "Group",
+    "heading": "Heading",
     "header": "Header",
     "layout": "Layout",
     "main": "Main",
@@ -40,6 +41,9 @@
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
     "input_corner_radius": "Input corner radius",
+    "heading": "Heading text",
+    "heading_size": "Heading size",
+    "heading_tag": "Heading level",
     "layout_direction": "Layout direction",
     "menu": "Menu",
     "customer_account_menu": "Customer account menu",
@@ -59,6 +63,21 @@
     "direction": {
       "horizontal": "Horizontal",
       "vertical": "Vertical"
+    },
+    "heading_tag": {
+      "h1": "H1",
+      "h2": "H2",
+      "h3": "H3",
+      "h4": "H4",
+      "h5": "H5",
+      "h6": "H6"
+    },
+    "heading_size": {
+      "display": "Display",
+      "h1": "H1",
+      "h2": "H2",
+      "h3": "H3",
+      "h4": "H4"
     },
     "page_width": {
       "narrow": "Narrow",
