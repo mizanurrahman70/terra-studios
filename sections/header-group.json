@@ -1,17 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 
 {
   "type": "header",
   "name": "Header group",
   "sections": {
-    "header": {
-      "type": "header",
+    "announcement": {
+      "type": "announcement",
       "settings": {
         "show_announcement": true,
         "announcement_text": "Free shipping on domestic orders over $150 — handcrafted in small batches",
+        "enable_scrolling": true,
+        "full_width": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
         "show_search": true,
         "search_placeholder": "Search collections..."
       }
     }
   },
-  "order": ["header"]
+  "order": ["announcement", "header"]
 }
