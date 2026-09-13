@@ -1,0 +1,391 @@
+{% doc %}
+  Renders a heading block with typography, sizing, width, highlight, animation,
+  and spacing controls.
+
+  @example
+  {% content_for 'block', type: 'heading', id: 'heading' %}
+{% enddoc %}
+
+{% assign heading_tag = block.settings.heading_tag %}
+{% assign heading_size = block.settings.heading_size_desktop %}
+{% assign heading_size_mobile = block.settings.heading_size_mobile %}
+
+{% assign heading_eyebrow = block.settings.eyebrow | default: section.settings.eyebrow %}
+{% assign heading_title = block.settings.heading | default: section.settings.heading %}
+{% assign heading_text = block.settings.text | default: section.settings.text %}
+
+{%- capture heading_class -%}
+  heading heading--{{ heading_size }}{% if heading_size_mobile != 'auto' %} heading--{{ heading_size_mobile }}-mobile{% endif %}{% if block.settings.width != 'fill' %} heading--{{ block.settings.width }}{% endif %}{% if block.settings.enable_highlight %} heading--hl heading--hl-{{ block.settings.highlight_style }}{% endif %}
+{%- endcapture -%}
+
+{%- capture heading_style -%}
+  --heading-align: {{ block.settings.alignment }};
+  --heading-max-width: {{ block.settings.custom_width }}px;
+  --heading-rotation: {{ block.settings.highlight_rotation }}deg;
+  padding-top: {{ block.settings.padding_top }}px;
+  padding-bottom: {{ block.settings.padding_bottom }}px;
+{%- endcapture -%}
+
+{%- assign heading_open = '<' | append: heading_tag | append: ' class="' | append: heading_class | append: '" style="' | append: heading_style | append: '"' -%}
+{%- if block.settings.animation != 'none' -%}
+  {%- assign heading_open = heading_open | append: ' data-heading-animate="' | append: block.settings.animation | append: '"' -%}
+{%- endif -%}
+{%- assign heading_open = heading_open | append: '>' -%}
+{%- assign heading_close = '</' | append: heading_tag | append: '>' -%}
+
+<div class="heading-group" data-block-type="heading" style="--heading-align: {{ block.settings.alignment }};" {{ block.shopify_attributes }}>
+  {%- if heading_eyebrow != blank -%}
+    <p class="heading-group__eyebrow">{{ heading_eyebrow | escape }}</p>
+  {%- endif -%}
+
+  {{ heading_open }}
+    {%- if block.settings.enable_highlight -%}
+      {%- assign heading_parts = heading_title | escape | newline_to_br | split: '*' -%}
+      {%- for heading_part in heading_parts -%}
+        {%- assign heading_part_index = forloop.index0 | modulo: 2 -%}
+        {%- if heading_part.size > 0 -%}
+          {%- if heading_part_index == 1 -%}
+            <em class="heading__highlight">{{ heading_part }}</em>
+          {%- else -%}
+            {{ heading_part }}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {{ heading_title | escape | newline_to_br }}
+    {%- endif -%}
+  {{ heading_close }}
+
+  {%- if heading_text != blank -%}
+    <div class="heading-group__text">{{ heading_text | escape | newline_to_br }}</div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .heading-group__eyebrow {
+    color: #c4592e;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0 0 16px;
+    text-align: var(--heading-align);
+    text-transform: uppercase;
+  }
+  .heading-group__text {
+    color: #77716b;
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 18px 0 0;
+    text-align: var(--heading-align);
+  }
+  .heading {
+    font-family: var(--font-primary--family);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0;
+    overflow-wrap: break-word;
+    text-align: var(--heading-align);
+  }
+
+  /* Size (desktop) */
+  .heading--display {
+    font-size: clamp(42px, 4.2vw, 66px);
+    letter-spacing: -0.055em;
+    line-height: 0.97;
+  }
+  .heading--h1 {
+    font-size: clamp(34px, 3.4vw, 48px);
+    letter-spacing: -0.04em;
+  }
+  .heading--h2 {
+    font-size: clamp(26px, 2.4vw, 36px);
+    letter-spacing: -0.03em;
+  }
+  .heading--h3 { font-size: 1.75rem; }
+  .heading--h4 { font-size: 1.375rem; }
+  .heading--h5 { font-size: 1.125rem; }
+  .heading--h6 { font-size: 1rem; }
+
+  /* Size (mobile) */
+  @media (max-width: 749px) {
+    .heading--display-mobile { font-size: clamp(34px, 8.5vw, 42px); }
+    .heading--h1-mobile { font-size: clamp(28px, 8vw, 38px); }
+    .heading--h2-mobile { font-size: clamp(23px, 6vw, 30px); }
+    .heading--h3-mobile { font-size: 1.5rem; }
+    .heading--h4-mobile { font-size: 1.25rem; }
+    .heading--h5-mobile { font-size: 1.0625rem; }
+    .heading--h6-mobile { font-size: 1rem; }
+  }
+
+  /* Width */
+  .heading--fit { width: fit-content; }
+  .heading--custom { width: 100%; max-width: var(--heading-max-width, 100%); }
+
+  /* Text highlight */
+  .heading__highlight {
+    font-style: italic;
+    position: relative;
+    white-space: nowrap;
+  }
+  .heading__highlight::after {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20240%2016'%3E%3Cpath%20d='M2%209c8-6%2020-7%2034-4%2060%2013%20130%2010%20200-6'%20fill='none'%20stroke='%23c4592e'%20stroke-width='4.5'%20stroke-linecap='round'/%3E%3C/svg%3E");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    background-size: auto 0.21em;
+    content: '';
+    height: 0.21em;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    bottom: -0.05em;
+    transform: rotate(var(--heading-rotation, 0deg));
+    transform-origin: center;
+  }
+
+  /* Animation */
+  [data-heading-animate] {
+    opacity: 0;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    will-change: opacity, transform;
+  }
+  [data-heading-animate='fade-up'] { transform: translateY(28px); }
+  [data-heading-animate].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-heading-animate] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    var elements = document.querySelectorAll('[data-heading-animate]');
+    if (!elements.length) return;
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (var i = 0; i < elements.length; i++) elements[i].classList.add('is-visible');
+      return;
+    }
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+    );
+    for (var j = 0; j < elements.length; j++) observer.observe(elements[j]);
+  })();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Heading",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "info": "Optional"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "info": "Optional"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use headings in order (H1 → H2 → H3) for better SEO and readability. If unsure, choose Paragraph."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "HTML tag",
+      "default": "h2",
+      "options": [
+        { "value": "paragraph", "label": "Paragraph" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Size · Desktop"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_desktop",
+      "label": "Desktop size",
+      "default": "h2",
+      "options": [
+        { "value": "display", "label": "Display" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_size_mobile",
+      "label": "Mobile size",
+      "default": "auto",
+      "info": "Auto keeps the desktop size on mobile.",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "display", "label": "Display" },
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" },
+        { "value": "h6", "label": "H6" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Width"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "fill",
+      "options": [
+        { "value": "fit", "label": "Fit" },
+        { "value": "fill", "label": "Fill" },
+        { "value": "custom", "label": "Custom" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "visible_if": "{{ block.settings.width == 'custom' }}",
+      "label": "Limit width",
+      "default": 650,
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Text highlight"
+    },
+    {
+      "type": "paragraph",
+      "content": "Wrap the text you want to highlight in asterisks, for example: Tactile *stoneware* shaped by hand."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_highlight",
+      "label": "Text highlight",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "highlight_font",
+      "visible_if": "{{ block.settings.enable_highlight }}",
+      "label": "Highlight font",
+      "default": "default",
+      "options": [{ "value": "default", "label": "Default" }]
+    },
+    {
+      "type": "select",
+      "id": "highlight_style",
+      "visible_if": "{{ block.settings.enable_highlight }}",
+      "label": "Highlight style",
+      "default": "underline-soft",
+      "options": [{ "value": "underline-soft", "label": "Underline (soft)" }]
+    },
+    {
+      "type": "range",
+      "id": "highlight_rotation",
+      "visible_if": "{{ block.settings.enable_highlight }}",
+      "label": "Rotation",
+      "default": 0,
+      "min": -30,
+      "max": 30,
+      "step": 1,
+      "unit": "°"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Type",
+      "default": "none",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade up" },
+        { "value": "fade-in", "label": "Fade in" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "default": 0,
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "default": 0,
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "presets": [{ "name": "Heading" }]
+}
+{% endschema %}

@@ -1,16 +1,15 @@
 {{ 'hero.css' | asset_url | stylesheet_tag }}
 
+{%- assign proof_count = 0 -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == 'proof' -%}
+    {%- assign proof_count = proof_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <section class="terra-hero terra-hero--{{ section.settings.image_position }}">
   <div class="terra-hero__copy">
-    {% if section.settings.eyebrow != blank %}
-      <p class="terra-hero__eyebrow"><span></span>{{ section.settings.eyebrow | escape }}</p>
-    {% endif %}
-
-    <h1>{{ section.settings.heading | escape | newline_to_br }}</h1>
-
-    {% if section.settings.text != blank %}
-      <div class="terra-hero__text">{{ section.settings.text | escape | newline_to_br }}</div>
-    {% endif %}
+    {% content_for 'block', type: 'heading', id: 'heading' %}
 
     <div class="terra-hero__actions">
       {% if section.settings.primary_label != blank %}
@@ -21,14 +20,9 @@
       {% endif %}
     </div>
 
-    {% if section.blocks.size > 0 %}
+    {% if proof_count > 0 %}
       <div class="terra-hero__proof" aria-label="Studio details">
-        {% for block in section.blocks %}
-          <div class="terra-hero__proof-item" {{ block.shopify_attributes }}>
-            <strong>{{ block.settings.heading | escape }}</strong>
-            <span>{{ block.settings.text | escape }}</span>
-          </div>
-        {% endfor %}
+        {% content_for 'blocks' %}
       </div>
     {% endif %}
   </div>
@@ -56,8 +50,17 @@
     { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Watch the process" },
     { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
   ],
-  "blocks": [{ "type": "proof", "name": "Proof point", "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "100%" }, { "type": "text", "id": "text", "label": "Text", "default": "Lead-Free Clay" }] }],
-  "max_blocks": 3,
-  "presets": [{ "name": "Terra hero", "blocks": [{ "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } }, { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }] }]
+  "blocks": [{ "type": "heading" }, { "type": "proof" }],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Terra hero",
+      "blocks": [
+        { "type": "heading", "id": "heading", "static": true, "settings": { "heading_tag": "h1", "heading_size_desktop": "display", "heading_size_mobile": "display", "width": "custom", "custom_width": 650, "alignment": "left" } },
+        { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
+        { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
+      ]
+    }
+  ]
 }
 {% endschema %}
