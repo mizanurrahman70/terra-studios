@@ -9,13 +9,54 @@
  */
 {
   "type": "footer",
-  "name": "t:general.footer",
+  "name": "Footer",
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "shop_all": { "type": "link", "settings": { "label": "All Ceramics", "url": "/collections/all", "column": "shop" } },
+        "shop_dinner": { "type": "link", "settings": { "label": "Dinner Sets", "url": "/collections/dinnerware", "column": "shop" } },
+        "shop_drink": { "type": "link", "settings": { "label": "Mugs & Drinkware", "url": "/collections/drinkware", "column": "shop" } },
+        "shop_vases": { "type": "link", "settings": { "label": "Serving Vases", "url": "/collections/vases", "column": "shop" } },
+        "shop_sale": { "type": "link", "settings": { "label": "Sale Highlights", "url": "/collections/sale", "column": "shop" } },
+        "studio_craft": { "type": "link", "settings": { "label": "Our Craftsmanship", "url": "/pages/our-story", "column": "studio" } },
+        "studio_sourcing": { "type": "link", "settings": { "label": "Sourcing Practices", "url": "/pages/our-story", "column": "studio" } },
+        "studio_apprentice": { "type": "link", "settings": { "label": "Apprentice Program", "url": "/pages/our-story", "column": "studio" } },
+        "studio_journal": { "type": "link", "settings": { "label": "Journal", "url": "/blogs/journal", "column": "studio" } },
+        "studio_collab": { "type": "link", "settings": { "label": "Collaborations", "url": "/pages/collaborations", "column": "studio" } },
+        "care_shipping": { "type": "link", "settings": { "label": "Shipping & Delivery", "url": "/policies/shipping-policy", "column": "care" } },
+        "care_returns": { "type": "link", "settings": { "label": "Returns & Exchanges", "url": "/policies/refund-policy", "column": "care" } },
+        "care_guide": { "type": "link", "settings": { "label": "Care & Lifetime Guide", "url": "/pages/care-guide", "column": "care" } },
+        "care_faqs": { "type": "link", "settings": { "label": "FAQs", "url": "/pages/faqs", "column": "care" } },
+        "care_contact": { "type": "link", "settings": { "label": "Contact Support", "url": "/pages/contact", "column": "care" } },
+        "social_instagram": { "type": "social", "settings": { "icon": "instagram", "url": "https://instagram.com/" } },
+        "social_facebook": { "type": "social", "settings": { "icon": "facebook", "url": "https://facebook.com/" } },
+        "social_pinterest": { "type": "social", "settings": { "icon": "pinterest", "url": "https://pinterest.com/" } },
+        "social_tiktok": { "type": "social", "settings": { "icon": "tiktok", "url": "https://tiktok.com/" } }
+      },
+      "block_order": [
+        "shop_all", "shop_dinner", "shop_drink", "shop_vases", "shop_sale",
+        "studio_craft", "studio_sourcing", "studio_apprentice", "studio_journal", "studio_collab",
+        "care_shipping", "care_returns", "care_guide", "care_faqs", "care_contact",
+        "social_instagram", "social_facebook", "social_pinterest", "social_tiktok"
+      ],
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "statement": "Tactile stoneware, shaped by hand. Small-batch ceramics pressed, glazed, and vitrified in our local workshop for everyday ritual.",
+        "shop_heading": "Shop",
+        "studio_heading": "Studio",
+        "care_heading": "Customer Care",
+        "shop_menu": "",
+        "studio_menu": "",
+        "care_menu": "",
+        "copyright": "Terra Studios. Handcrafted in small batches.",
+        "show_policy_links": true,
+        "show_cart_link": true,
+        "show_payment_icons": true,
+        "padding": 84,
+        "background": "#332e29",
+        "text_color": "#ffffff",
+        "muted_color": "#b9b2a9",
+        "accent_color": "#c4592e"
       }
     }
   },
