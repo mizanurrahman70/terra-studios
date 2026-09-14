@@ -1,10 +1,49 @@
-.terra-announcement{background:var(--terra-announcement-bg,#c4592e);color:var(--terra-announcement-fg,#fff);grid-column:1/-1;margin-bottom:var(--terra-announcement-margin-bottom,0);margin-top:var(--terra-announcement-margin-top,0);padding-bottom:var(--terra-announcement-pad-bottom,12px);padding-top:var(--terra-announcement-pad-top,12px)}
+.terra-announcement {
+  background: var(--terra-announcement-bg, #c4592e);
+  color: var(--terra-announcement-fg, #fff);
+  grid-column: 1 / -1;
+  margin-bottom: var(--terra-announcement-margin-bottom, 0);
+  margin-top: var(--terra-announcement-margin-top, 0);
+  padding-bottom: var(--terra-announcement-pad-bottom, 12px);
+  padding-top: var(--terra-announcement-pad-top, 12px);
+}
 
-.terra-announcement__inner{margin:0 auto;max-width:var(--terra-announcement-max-width,1440px);overflow:hidden;padding-left:var(--terra-announcement-pad-inline,24px);padding-right:var(--terra-announcement-pad-inline,24px)}
-.terra-announcement__inner--full{max-width:none}
-.terra-announcement__item{font-size:10px;font-weight:700;letter-spacing:.03em;line-height:1.4;margin:0;text-transform:uppercase}
-.terra-announcement__item--static{text-align:center}
-.terra-announcement--scroll .terra-announcement__track{align-items:center;display:flex;width:max-content;animation:terra-announcement-scroll var(--terra-announcement-duration,2s) linear infinite}
-.terra-announcement__track .terra-announcement__item{margin-right:48px;white-space:nowrap}
-.terra-announcement--scroll .terra-announcement__inner:hover .terra-announcement__track{animation-play-state:paused}
-@keyframes terra-announcement-scroll{to{transform:translateX(-25%)}}
+.terra-announcement__inner {
+  margin: 0 auto;
+  max-width: var(--terra-announcement-max-width, 1440px);
+  overflow: hidden;
+  padding-left: var(--terra-announcement-pad-inline, 24px);
+  padding-right: var(--terra-announcement-pad-inline, 24px);
+}
+.terra-announcement__inner--full {
+  max-width: none;
+}
+.terra-announcement__item {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .03em;
+  line-height: 1.4;
+  margin: 0;
+  text-transform: uppercase;
+}
+.terra-announcement__item--static {
+  text-align: center;
+}
+.terra-announcement--scroll .terra-announcement__track {
+  align-items: center;
+  animation: terra-announcement-scroll var(--terra-announcement-duration, 2s) linear infinite;
+  display: flex;
+  width: max-content;
+}
+.terra-announcement__track .terra-announcement__item {
+  margin-right: 48px;
+  white-space: nowrap;
+}
+.terra-announcement--scroll .terra-announcement__inner:hover .terra-announcement__track {
+  animation-play-state: paused;
+}
+@keyframes terra-announcement-scroll {
+  to {
+    transform: translateX(-25%);
+  }
+}

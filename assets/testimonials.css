@@ -1,13 +1,93 @@
-.terra-testimonials { background: var(--terra-testimonials-bg); color: var(--terra-testimonials-text); grid-column: 1 / -1; padding: var(--terra-testimonials-padding) clamp(20px, 5vw, 80px); }
-.terra-testimonials__heading { margin: 0 auto 52px; max-width: 1300px; text-align: center; }
-.terra-testimonials__heading p { color: var(--terra-testimonials-accent); font-size: 10px; font-weight: 800; letter-spacing: .02em; margin: 0 0 14px; text-transform: uppercase; }
-.terra-testimonials h2 { font-size: clamp(30px, 3vw, 43px); font-weight: 800; letter-spacing: -.055em; line-height: 1; margin: 0; }
-.terra-testimonials__grid { display: grid; gap: 24px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 auto; max-width: 1050px; }
-.terra-testimonial { border: 1px solid #e7e2dc; display: flex; flex-direction: column; margin: 0; min-height: 230px; padding: 31px; }
-.terra-testimonial__stars { color: var(--terra-testimonials-accent); display: flex; font-size: 23px; font-weight: 700; gap: 1px; line-height: .8; }
-.terra-testimonial blockquote { font-size: 15px; line-height: 1.55; margin: 28px 0; }
-.terra-testimonial figcaption { align-items: center; display: flex; font-size: 13px; gap: 16px; margin-top: auto; }
-.terra-testimonial figcaption strong { font-weight: 800; }
-.terra-testimonial figcaption span { color: var(--terra-testimonials-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
-.terra-testimonial figcaption b { color: var(--terra-testimonials-accent); font-size: 14px; margin-right: 4px; }
-@media (max-width: 749px) { .terra-testimonials { padding-block: max(64px, var(--terra-testimonials-padding)); } .terra-testimonials__heading { margin-bottom: 34px; } .terra-testimonials__grid { grid-template-columns: 1fr; max-width: 440px; } .terra-testimonial { min-height: 0; padding: 26px; } }
+.terra-testimonials {
+  background: var(--terra-testimonials-bg);
+  color: var(--terra-testimonials-text);
+  grid-column: 1 / -1;
+  padding: var(--terra-testimonials-padding) clamp(20px, 5vw, 80px);
+}
+.terra-testimonials__heading {
+  margin: 0 auto 52px;
+  max-width: 1300px;
+  text-align: center;
+}
+.terra-testimonials__heading p {
+  color: var(--terra-testimonials-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+.terra-testimonials h2 {
+  font-size: clamp(30px, 3vw, 43px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: 1;
+  margin: 0;
+}
+.terra-testimonials__grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 1050px;
+}
+.terra-testimonial {
+  border: 1px solid #e7e2dc;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 230px;
+  padding: 31px;
+}
+.terra-testimonial__stars {
+  color: var(--terra-testimonials-accent);
+  display: flex;
+  font-size: 23px;
+  font-weight: 700;
+  gap: 1px;
+  line-height: .8;
+}
+.terra-testimonial blockquote {
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 28px 0;
+}
+.terra-testimonial figcaption {
+  align-items: center;
+  display: flex;
+  font-size: 13px;
+  gap: 16px;
+  margin-top: auto;
+}
+.terra-testimonial figcaption strong {
+  font-weight: 800;
+}
+.terra-testimonial figcaption span {
+  color: var(--terra-testimonials-muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.terra-testimonial figcaption b {
+  color: var(--terra-testimonials-accent);
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+@media (max-width: 749px) {
+  .terra-testimonials {
+    padding-block: max(64px, var(--terra-testimonials-padding));
+  }
+  .terra-testimonials__heading {
+    margin-bottom: 34px;
+  }
+  .terra-testimonials__grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+  .terra-testimonial {
+    min-height: 0;
+    padding: 26px;
+  }
+}
