@@ -24,7 +24,7 @@
 
 {% schema %}
 {
-  "name": "Terra trust bar",
+  "name": "Trust bar",
   "settings": [
     { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 20, "max": 100, "step": 2, "unit": "px", "default": 46 },
     { "type": "color", "id": "background", "label": "Background", "default": "#f8f7f4" },
@@ -34,6 +34,6 @@
   ],
   "blocks": [{ "type": "trust_point", "name": "Trust point", "settings": [{ "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [{ "value": "leaf", "label": "Leaf" }, { "value": "shield", "label": "Shield" }, { "value": "hands", "label": "Hands" }, { "value": "package", "label": "Package" }] }, { "type": "text", "id": "heading", "label": "Heading", "default": "Sustainably Sourced" }, { "type": "textarea", "id": "text", "label": "Text", "default": "All clay is sourced from local, ethical mineral reserves." }] }],
   "max_blocks": 6,
-  "presets": [{ "name": "Terra trust bar", "blocks": [{ "type": "trust_point", "settings": { "icon": "leaf", "heading": "Sustainably Sourced", "text": "All clay is sourced from local, ethical mineral reserves." } }, { "type": "trust_point", "settings": { "icon": "shield", "heading": "Kiln-Fired Durability", "text": "Twice vitrified at 2200°F for microwave & dishwasher safety." } }, { "type": "trust_point", "settings": { "icon": "hands", "heading": "Direct Artisan Trade", "text": "Ensuring fair living wages for every studio apprentice." } }, { "type": "trust_point", "settings": { "icon": "package", "heading": "Conscious Packaging", "text": "100% plastic-free, recyclable, and compostable box materials." } }] }]
+  "presets": [{ "name": "Trust bar", "blocks": [{ "type": "trust_point", "settings": { "icon": "leaf", "heading": "Sustainably Sourced", "text": "All clay is sourced from local, ethical mineral reserves." } }, { "type": "trust_point", "settings": { "icon": "shield", "heading": "Kiln-Fired Durability", "text": "Twice vitrified at 2200°F for microwave & dishwasher safety." } }, { "type": "trust_point", "settings": { "icon": "hands", "heading": "Direct Artisan Trade", "text": "Ensuring fair living wages for every studio apprentice." } }, { "type": "trust_point", "settings": { "icon": "package", "heading": "Conscious Packaging", "text": "100% plastic-free, recyclable, and compostable box materials." } }] }]
 }
 {% endschema %}
