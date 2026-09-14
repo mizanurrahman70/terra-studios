@@ -4,20 +4,16 @@
     "hero": {
       "type": "terra-hero",
       "blocks": {
-        "lead_free": { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
-        "batch": { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } },
-        "heading": { "type": "heading", "static": true, "settings": { "heading_tag": "h1", "heading_size_desktop": "display", "heading_size_mobile": "display", "width": "custom", "custom_width": 650, "alignment": "left" } }
+        "media": { "type": "image", "settings": {} },
+        "heading": { "type": "heading", "settings": { "eyebrow": "The autumn collection", "heading": "Tactile stoneware\nshaped by hand" } },
+        "intro": { "type": "text", "settings": { "text": "<p>Organic curves, textured glazes, and timeless forms crafted to bring warmth and everyday beauty to your morning ritual.</p>" } },
+        "actions": { "type": "buttons", "settings": { "primary_label": "Shop collection", "primary_link": "/collections/all", "secondary_label": "Watch the process", "secondary_link": "/pages/our-story" } },
+        "lead_free": { "type": "stat", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
+        "batch": { "type": "stat", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
       },
-      "block_order": ["lead_free", "batch"],
+      "block_order": ["media", "heading", "intro", "actions", "lead_free", "batch"],
       "settings": {
-        "image_position": "right",
-        "eyebrow": "The autumn collection",
-        "heading": "Tactile stoneware\nshaped by hand",
-        "text": "Organic curves, textured glazes, and timeless forms crafted to bring warmth and\neveryday beauty to your morning ritual.",
-        "primary_label": "Shop collection",
-        "primary_link": "/collections/all",
-        "secondary_label": "Watch the process",
-        "secondary_link": "/pages/our-story"
+        "image_position": "right"
       }
     },
     "collection_circles": {
