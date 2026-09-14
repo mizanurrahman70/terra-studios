@@ -1,0 +1,66 @@
+{% style %}
+  #TerraRichText-{{ section.id }} {
+    --terra-richtext-bg: {{ section.settings.background }};
+    --terra-richtext-text: {{ section.settings.text_color }};
+    --terra-richtext-muted: {{ section.settings.muted_color }};
+    --terra-richtext-accent: {{ section.settings.accent_color }};
+    --terra-richtext-padding: {{ section.settings.padding }}px;
+    --terra-richtext-align: {{ section.settings.alignment }};
+    --terra-richtext-width: {{ section.settings.max_width }}px;
+  }
+{% endstyle %}
+
+{{ 'rich-text.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraRichText-{{ section.id }}" class="terra-rich-text">
+  <div class="terra-rich-text__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="terra-rich-text__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="terra-rich-text__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+    {% endif %}
+    {% if section.settings.text != blank %}
+      <div class="terra-rich-text__body">{{ section.settings.text }}</div>
+    {% endif %}
+    {% if section.settings.button_label != blank %}
+      <div class="terra-rich-text__actions terra-rich-text__actions--{{ section.settings.alignment }}">
+        <a class="terra-rich-text__button terra-rich-text__button--primary" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_label | escape }}
+        </a>
+        {% if section.settings.secondary_label != blank %}
+          <a class="terra-rich-text__button terra-rich-text__button--secondary" href="{{ section.settings.secondary_link }}">
+            {{ section.settings.secondary_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra rich text",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The story" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Ceramics, made\nslowly on purpose" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Every piece starts as a lump of locally sourced clay and becomes a durable, food-safe object meant to be passed down. No shortcuts, no molds \u2014 just hands, wheels, and patience.</p>" },
+    { "type": "header", "content": "Layout" },
+    { "type": "text_alignment", "id": "alignment", "label": "Alignment", "default": "center" },
+    { "type": "range", "id": "max_width", "label": "Content width", "min": 480, "max": 1200, "step": 20, "unit": "px", "default": 780 },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Our story" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Contact us" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "header", "content": "Spacing & colors" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 160, "step": 2, "unit": "px", "default": 96 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "presets": [{ "name": "Terra rich text" }]
+}
+{% endschema %}

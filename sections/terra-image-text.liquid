@@ -1,0 +1,88 @@
+{% style %}
+  #TerraImageText-{{ section.id }} {
+    --terra-imagetext-bg: {{ section.settings.background }};
+    --terra-imagetext-text: {{ section.settings.text_color }};
+    --terra-imagetext-muted: {{ section.settings.muted_color }};
+    --terra-imagetext-accent: {{ section.settings.accent_color }};
+    --terra-imagetext-padding: {{ section.settings.padding }}px;
+  }
+{% endstyle %}
+
+{{ 'image-text.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraImageText-{{ section.id }}" class="terra-image-text">
+  <div class="terra-image-text__list">
+    {% for block in section.blocks %}
+      <article
+        class="terra-image-text__row{% if block.settings.image_position == 'right' %} terra-image-text__row--image-right{% endif %}"
+        {{ block.shopify_attributes }}
+      >
+        <div class="terra-image-text__media">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '600, 900, 1200, 1400', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'lazy', alt: block.settings.heading }}
+          {% else %}
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+
+        <div class="terra-image-text__content">
+          {% if block.settings.eyebrow != blank %}
+            <p class="terra-image-text__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+          {% endif %}
+          {% if block.settings.heading != blank %}
+            <h2>{{ block.settings.heading | escape | newline_to_br }}</h2>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="terra-image-text__body">{{ block.settings.text }}</div>
+          {% endif %}
+          {% if block.settings.button_label != blank %}
+            <a class="terra-image-text__button" href="{{ block.settings.button_link }}">
+              {{ block.settings.button_label | escape }}
+            </a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra image with text",
+  "settings": [
+    { "type": "header", "content": "Spacing & colors" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 160, "step": 2, "unit": "px", "default": 88 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Image with text",
+      "settings": [
+        { "type": "header", "content": "Media" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "image_position", "label": "Image position", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+        { "type": "header", "content": "Content" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The process" },
+        { "type": "textarea", "id": "heading", "label": "Heading", "default": "Thrown, glazed,\nand twice fired" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Each vessel spends a week on the wheel and another cycling the kiln twice to reach its final strength. The result is a piece that shrugs off everyday life.</p>" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Read the journal" },
+        { "type": "url", "id": "button_link", "label": "Button link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Terra image with text",
+      "blocks": [
+        { "type": "row", "settings": { "image_position": "left", "eyebrow": "The process", "heading": "Thrown, glazed,\nand twice fired", "button_label": "Read the journal" } },
+        { "type": "row", "settings": { "image_position": "right", "eyebrow": "The materials", "heading": "Clay you can\nfeel good about", "button_label": "Our materials" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

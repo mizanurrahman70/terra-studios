@@ -1,0 +1,96 @@
+{% style %}
+  #TerraFeatureList-{{ section.id }} {
+    --terra-featurelist-bg: {{ section.settings.background }};
+    --terra-featurelist-text: {{ section.settings.text_color }};
+    --terra-featurelist-muted: {{ section.settings.muted_color }};
+    --terra-featurelist-accent: {{ section.settings.accent_color }};
+    --terra-featurelist-padding: {{ section.settings.padding }}px;
+    --terra-featurelist-count: {{ section.blocks.size }};
+  }
+{% endstyle %}
+
+{{ 'feature-list.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraFeatureList-{{ section.id }}" class="terra-feature-list">
+  <div class="terra-feature-list__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="terra-feature-list__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="terra-feature-list__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="terra-feature-list__grid">
+        {% for block in section.blocks %}
+          <article class="terra-feature-list__item" {{ block.shopify_attributes }}>
+            <span class="terra-feature-list__icon" aria-hidden="true">
+              {% case block.settings.icon %}
+                {% when 'leaf' %}<svg viewBox="0 0 24 24"><path d="M20 4C11 4 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16Z"/><path d="M4 20c3-4 6-6 11-8"/></svg>
+                {% when 'shield' %}<svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Z"/></svg>
+                {% when 'hands' %}<svg viewBox="0 0 24 24"><path d="m5 12 3 3 3-3 2 2 3-3 3 3-5 5H9l-4-4v-3Z"/><path d="m4 8 3 3M17 7l3 3"/></svg>
+                {% when 'package' %}<svg viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4V7Z"/><path d="m4 7 8 4 8-4M12 11v10"/></svg>
+                {% when 'sparkle' %}<svg viewBox="0 0 24 24"><path d="M12 3v6M12 15v6M3 12h6M15 12h6M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3"/></svg>
+                {% when 'heart' %}<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.4C1 8.5 2.6 5 5.8 5 8 5 9.5 6 12 8.5 14.5 6 16 5 18.2 5 21.4 5 23 8.5 21.2 11.6 19 15.6 12 20 12 20Z"/></svg>
+                {% when 'truck' %}<svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>
+                {% when 'globe' %}<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 2.5 3 15.5 0 18M12 3c-3 2.5-3 15.5 0 18"/></svg>
+                {% when 'droplet' %}<svg viewBox="0 0 24 24"><path d="M12 3c4 4.5 7 8 7 11.5A7 7 0 0 1 5 14.5C5 11 8 7.5 12 3Z"/></svg>
+                {% else %}<svg viewBox="0 0 24 24"><path d="M4 7 12 3l8 4v10l-8 4-8-4V7Z"/><path d="m4 7 8 4 8-4M12 11v10"/></svg>
+              {% endcase %}
+            </span>
+
+            {% if block.settings.link != blank %}
+              <a class="terra-feature-list__link" href="{{ block.settings.link }}">
+                <h3>{{ block.settings.title | escape }}</h3>
+              </a>
+            {% else %}
+              <h3>{{ block.settings.title | escape }}</h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <p>{{ block.settings.text | escape }}</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra feature list",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Terra" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built to last a lifetime" },
+    { "type": "header", "content": "Spacing & colors" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 160, "step": 2, "unit": "px", "default": 88 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Icon color", "default": "#c4592e" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [{ "value": "leaf", "label": "Leaf" }, { "value": "shield", "label": "Shield" }, { "value": "hands", "label": "Hands" }, { "value": "package", "label": "Package" }, { "value": "sparkle", "label": "Sparkle" }, { "value": "heart", "label": "Heart" }, { "value": "truck", "label": "Truck" }, { "value": "globe", "label": "Globe" }, { "value": "droplet", "label": "Droplet" }] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Crafted by hand" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Shaped on the wheel by studio artisans, so no two pieces are exactly alike." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Terra feature list",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "leaf", "title": "Crafted by hand", "text": "Shaped on the wheel by studio artisans, so no two pieces are exactly alike." } },
+        { "type": "feature", "settings": { "icon": "shield", "title": "Made to last", "text": "Twice fired at 2200\u00b0F, every piece is built for the dishwasher and the everyday." } },
+        { "type": "feature", "settings": { "icon": "truck", "title": "Ships plastic-free", "text": "Compostable packing and carbon-neutral delivery on every order." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
