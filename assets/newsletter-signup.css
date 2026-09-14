@@ -1,13 +1,93 @@
-.terra-newsletter { background: var(--terra-newsletter-bg); color: var(--terra-newsletter-text); grid-column: 1 / -1; padding: var(--terra-newsletter-padding) 20px; text-align: center; }
-.terra-newsletter__inner { margin: 0 auto; max-width: 750px; }
-.terra-newsletter__eyebrow { color: var(--terra-newsletter-accent); font-size: 10px; font-weight: 800; letter-spacing: .02em; margin: 0 0 22px; text-transform: uppercase; }
-.terra-newsletter h2 { font-size: clamp(34px, 3.4vw, 50px); font-weight: 800; letter-spacing: -.055em; line-height: 1; margin: 0; }
-.terra-newsletter__text { color: var(--terra-newsletter-muted); font-size: 15px; line-height: 1.55; margin-top: 27px; }
-.terra-newsletter__form { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr) max-content; margin: 32px auto 0; max-width: 530px; position: relative; }
-.terra-newsletter__form input { background: #fff; border: 1px solid #e2ddd7; border-radius: 0; color: var(--terra-newsletter-text); font-size: 13px; min-height: 46px; padding: 0 15px; }
-.terra-newsletter__form input:focus { border-color: var(--terra-newsletter-accent); outline: 1px solid var(--terra-newsletter-accent); }
-.terra-newsletter__form button { background: var(--terra-newsletter-accent); border: 0; color: #fff; cursor: pointer; font-size: 11px; font-weight: 800; min-height: 46px; padding: 0 22px; text-transform: uppercase; }
-.terra-newsletter__form button:hover, .terra-newsletter__form button:focus-visible { filter: brightness(.93); }
-.terra-newsletter__message { color: var(--terra-newsletter-text); font-size: 13px; grid-column: 1 / -1; margin: 0; text-align: left; }
-.terra-newsletter__message--error { color: #a52f22; }
-@media (max-width: 520px) { .terra-newsletter { padding-block: max(64px, var(--terra-newsletter-padding)); } .terra-newsletter h2 { font-size: 35px; } .terra-newsletter__form { grid-template-columns: 1fr; } .terra-newsletter__form button { min-height: 46px; } }
+.terra-newsletter {
+  background: var(--terra-newsletter-bg);
+  color: var(--terra-newsletter-text);
+  grid-column: 1 / -1;
+  padding: var(--terra-newsletter-padding) 20px;
+  text-align: center;
+}
+.terra-newsletter__inner {
+  margin: 0 auto;
+  max-width: 750px;
+}
+.terra-newsletter__eyebrow {
+  color: var(--terra-newsletter-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin: 0 0 22px;
+  text-transform: uppercase;
+}
+.terra-newsletter h2 {
+  font-size: clamp(34px, 3.4vw, 50px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: 1;
+  margin: 0;
+}
+.terra-newsletter__text {
+  color: var(--terra-newsletter-muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin-top: 27px;
+}
+.terra-newsletter__form {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  margin: 32px auto 0;
+  max-width: 530px;
+  position: relative;
+}
+.terra-newsletter__form input {
+  background: #fff;
+  border: 1px solid #e2ddd7;
+  border-radius: 0;
+  color: var(--terra-newsletter-text);
+  font-size: 13px;
+  min-height: 46px;
+  padding: 0 15px;
+}
+.terra-newsletter__form input:focus {
+  border-color: var(--terra-newsletter-accent);
+  outline: 1px solid var(--terra-newsletter-accent);
+}
+.terra-newsletter__form button {
+  background: var(--terra-newsletter-accent);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  min-height: 46px;
+  padding: 0 22px;
+  text-transform: uppercase;
+}
+.terra-newsletter__form button:hover,
+.terra-newsletter__form button:focus-visible {
+  filter: brightness(.93);
+}
+.terra-newsletter__message {
+  color: var(--terra-newsletter-text);
+  font-size: 13px;
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: left;
+}
+.terra-newsletter__message--error {
+  color: #a52f22;
+}
+
+@media (max-width: 520px) {
+  .terra-newsletter {
+    padding-block: max(64px, var(--terra-newsletter-padding));
+  }
+  .terra-newsletter h2 {
+    font-size: 35px;
+  }
+  .terra-newsletter__form {
+    grid-template-columns: 1fr;
+  }
+  .terra-newsletter__form button {
+    min-height: 46px;
+  }
+}
