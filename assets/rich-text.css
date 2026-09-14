@@ -1,0 +1,98 @@
+.terra-rich-text {
+  background: var(--terra-richtext-bg);
+  color: var(--terra-richtext-text);
+  grid-column: 1 / -1;
+  padding: var(--terra-richtext-padding) clamp(20px, 5vw, 82px);
+}
+.terra-rich-text__inner {
+  margin: 0 auto;
+  max-width: var(--terra-richtext-width, 780px);
+  text-align: var(--terra-richtext-align, center);
+}
+.terra-rich-text__eyebrow {
+  color: var(--terra-richtext-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin: 0 0 22px;
+  text-transform: uppercase;
+}
+.terra-rich-text__heading {
+  font-size: clamp(30px, 3vw, 43px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  margin: 0;
+}
+.terra-rich-text__body {
+  color: var(--terra-richtext-muted);
+  font-size: 16px;
+  line-height: 1.65;
+  margin-top: 24px;
+}
+.terra-rich-text__body p {
+  margin: 0;
+}
+.terra-rich-text__body p + p,
+.terra-rich-text__body ul + p,
+.terra-rich-text__body p + ul {
+  margin-top: 1.05em;
+}
+.terra-rich-text__body ul {
+  margin: 0;
+  padding: 0 0 0 1.25em;
+}
+.terra-rich-text__body a {
+  color: var(--terra-richtext-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.terra-rich-text__body a:hover {
+  opacity: .85;
+}
+.terra-rich-text__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 34px;
+}
+.terra-rich-text__actions--left {
+  justify-content: flex-start;
+}
+.terra-rich-text__actions--right {
+  justify-content: flex-end;
+}
+.terra-rich-text__button {
+  align-items: center;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 28px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.terra-rich-text__button--primary {
+  background: var(--terra-richtext-accent);
+  color: #ffffff;
+}
+.terra-rich-text__button--secondary {
+  border: 1px solid #e3ded8;
+  color: var(--terra-richtext-text);
+}
+.terra-rich-text__button:hover {
+  filter: brightness(.94);
+}
+
+@media (max-width: 520px) {
+  .terra-rich-text {
+    padding-block: max(50px, var(--terra-richtext-padding));
+  }
+  .terra-rich-text__button {
+    flex: 1;
+    min-width: 160px;
+  }
+}

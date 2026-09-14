@@ -1,0 +1,76 @@
+.terra-logo-bar {
+  background: var(--terra-logobar-bg);
+  color: var(--terra-logobar-text);
+  grid-column: 1 / -1;
+  padding: var(--terra-logobar-padding) clamp(20px, 5vw, 82px);
+}
+.terra-logo-bar__inner {
+  margin: 0 auto;
+  max-width: 1360px;
+}
+.terra-logo-bar__heading {
+  color: var(--terra-logobar-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.terra-logo-bar__list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  justify-content: center;
+  margin-top: 34px;
+}
+.terra-logo-bar__item a {
+  display: block;
+  text-decoration: none;
+}
+.terra-logo-bar__item img {
+  display: block;
+  height: 44px;
+  max-width: 180px;
+  object-fit: contain;
+  opacity: .75;
+  transition: opacity .25s ease, filter .25s ease;
+  width: auto;
+}
+.terra-logo-bar__item--grayscale img {
+  filter: grayscale(1);
+}
+.terra-logo-bar__item:hover img {
+  filter: grayscale(0);
+  opacity: 1;
+}
+.terra-logo-bar__fallback {
+  color: var(--terra-logobar-muted);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  opacity: .7;
+  transition: opacity .25s ease, color .25s ease;
+}
+.terra-logo-bar__item:hover .terra-logo-bar__fallback {
+  color: var(--terra-logobar-accent);
+  opacity: 1;
+}
+.terra-logo-bar__empty {
+  color: var(--terra-logobar-muted);
+  margin: 34px 0 0;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .terra-logo-bar {
+    padding-block: 42px;
+  }
+  .terra-logo-bar__list {
+    gap: 18px 30px;
+  }
+  .terra-logo-bar__item img {
+    height: 34px;
+  }
+}

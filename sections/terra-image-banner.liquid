@@ -1,0 +1,70 @@
+{% style %}
+  #TerraImageBanner-{{ section.id }} {
+    --terra-banner-text: {{ section.settings.text_color }};
+    --terra-banner-accent: {{ section.settings.accent_color }};
+    --terra-banner-overlay-color: {{ section.settings.overlay_color }};
+    --terra-banner-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --terra-banner-height: {{ section.settings.height }}px;
+  }
+{% endstyle %}
+
+{{ 'image-banner.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraImageBanner-{{ section.id }}" class="terra-image-banner">
+  <div class="terra-image-banner__media">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 3000 | image_tag: widths: '800, 1200, 1600, 2400, 3000', sizes: '100vw', loading: 'lazy', alt: section.settings.image.alt }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {% endif %}
+    {% if section.settings.show_overlay %}
+      <div class="terra-image-banner__overlay" aria-hidden="true"></div>
+    {% endif %}
+  </div>
+
+  <div class="terra-image-banner__content terra-image-banner__content--{{ section.settings.content_position }} terra-image-banner__content--{{ section.settings.content_alignment }}">
+    <div class="terra-image-banner__inner">
+      {% if section.settings.eyebrow != blank %}
+        <p class="terra-image-banner__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="terra-image-banner__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="terra-image-banner__text">{{ section.settings.text | escape | newline_to_br }}</div>
+      {% endif %}
+      {% if section.settings.button_label != blank %}
+        <a class="terra-image-banner__button" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra image banner",
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "range", "id": "height", "label": "Banner height", "min": 320, "max": 900, "step": 10, "unit": "px", "default": 560 },
+    { "type": "checkbox", "id": "show_overlay", "label": "Show overlay", "default": true },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#1b1917" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 35 },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Autumn batch 05" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Made in small batches\nby hand" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A limited run of platters and vases, waiting for your table." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the drop" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "content_position", "label": "Horizontal position", "default": "center", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
+    { "type": "select", "id": "content_alignment", "label": "Vertical position", "default": "center", "options": [{ "value": "top", "label": "Top" }, { "value": "center", "label": "Center" }, { "value": "bottom", "label": "Bottom" }] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" },
+    { "type": "color", "id": "accent_color", "label": "Button color", "default": "#c4592e" }
+  ],
+  "presets": [{ "name": "Terra image banner" }]
+}
+{% endschema %}

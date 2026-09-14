@@ -1,0 +1,129 @@
+.terra-contact {
+  background: var(--terra-contact-bg);
+  color: var(--terra-contact-text);
+  grid-column: 1 / -1;
+  padding: var(--terra-contact-padding) clamp(20px, 5vw, 82px);
+}
+.terra-contact__inner {
+  display: grid;
+  gap: clamp(40px, 6vw, 88px);
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.terra-contact__eyebrow {
+  color: var(--terra-contact-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin: 0 0 22px;
+  text-transform: uppercase;
+}
+.terra-contact__intro h2 {
+  font-size: clamp(30px, 3vw, 43px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  margin: 0;
+}
+.terra-contact__text {
+  color: var(--terra-contact-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 24px;
+  max-width: 420px;
+}
+.terra-contact__status {
+  border-left: 3px solid var(--terra-contact-accent);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 26px;
+  padding: 12px 16px;
+}
+.terra-contact__status--success {
+  background: #f1f5ee;
+  border-left-color: #4a7c4f;
+  color: #2c4a30;
+}
+.terra-contact__status--error {
+  background: #fbf0ee;
+  border-left-color: #a52f22;
+  color: #7c241a;
+}
+.terra-contact__row {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.terra-contact__field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.terra-contact__field label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.terra-contact__field input,
+.terra-contact__field textarea {
+  background: #fff;
+  border: 1px solid #e2ddd7;
+  border-radius: 0;
+  color: var(--terra-contact-text);
+  font: inherit;
+  font-size: 14px;
+  min-height: 46px;
+  padding: 12px 15px;
+  width: 100%;
+}
+.terra-contact__field textarea {
+  resize: vertical;
+}
+.terra-contact__field input::placeholder,
+.terra-contact__field textarea::placeholder {
+  color: #b3ada6;
+}
+.terra-contact__field input:focus-visible,
+.terra-contact__field textarea:focus-visible {
+  border-color: var(--terra-contact-accent);
+  box-shadow: 0 0 0 1px var(--terra-contact-accent);
+  outline: none;
+}
+.terra-contact__button {
+  background: var(--terra-contact-accent);
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  justify-content: center;
+  margin-top: 4px;
+  min-height: 48px;
+  padding: 0 32px;
+  text-transform: uppercase;
+}
+.terra-contact__button:hover {
+  filter: brightness(.94);
+}
+
+@media (max-width: 899px) {
+  .terra-contact__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .terra-contact {
+    padding-block: max(50px, var(--terra-contact-padding));
+  }
+  .terra-contact__row {
+    grid-template-columns: 1fr;
+  }
+  .terra-contact__button {
+    width: 100%;
+  }
+}
