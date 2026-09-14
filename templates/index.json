@@ -103,6 +103,19 @@
         "accent_color": "#c4592e"
       }
     },
+    "faq": {
+      "type": "terra-faq",
+      "blocks": {
+        "group_shipping": { "type": "heading", "settings": { "group_title": "Shipping & Delivery" } },
+        "q_ship": { "type": "question", "settings": { "question": "When will my order ship?", "answer": "Orders are hand-packed within 2–3 business days. Domestic orders over $150 ship free, and most arrive within 5–7 business days." } },
+        "q_damaged": { "type": "question", "settings": { "question": "My piece arrived damaged. What now?", "answer": "We pack every piece by hand in plastic-free, compostable wraps. If something arrives broken, email a photo within 3 days and we will replace it free of charge." } },
+        "group_care": { "type": "heading", "settings": { "group_title": "Care & Lifetime Guide" } },
+        "q_care": { "type": "question", "settings": { "question": "Are Terra pieces dishwasher and microwave safe?", "answer": "Yes. Every piece is twice vitrified at 2200°F, making it dishwasher, microwave and oven safe. Avoid direct flame and sudden temperature shocks." } },
+        "q_lead_free": { "type": "question", "settings": { "question": "Are the glazes lead-free?", "answer": "Entirely. We use 100% lead-free, food-safe clay and glazes, and every batch is fired to food-safe certification standards." } }
+      },
+      "block_order": ["group_shipping", "q_ship", "q_damaged", "group_care", "q_care", "q_lead_free"],
+      "settings": { "eyebrow": "Customer care", "heading": "Frequently asked\nquestions", "background": "#f8f7f4", "text_color": "#2b2925", "muted_color": "#77716b", "accent_color": "#c4592e", "line_color": "#e9e4dd", "padding": 96 }
+    },
     "newsletter": {
       "type": "terra-newsletter-signup",
       "settings": {
@@ -120,5 +133,5 @@
       }
     }
   },
-  "order": ["hero", "collection_circles", "trust_bar", "featured_products", "heritage_split", "testimonials", "newsletter"]
+  "order": ["hero", "collection_circles", "trust_bar", "featured_products", "heritage_split", "testimonials", "faq", "newsletter"]
 }

@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "terra-faq",
+      "blocks": {
+        "group_shipping": { "type": "heading", "settings": { "group_title": "Shipping & Delivery" } },
+        "q_ship": { "type": "question", "settings": { "question": "When will my order ship?", "answer": "Orders are hand-packed within 2–3 business days. Domestic orders over $150 ship free, and most arrive within 5–7 business days." } },
+        "q_where": { "type": "question", "settings": { "question": "Where do you ship?", "answer": "We currently ship across the US and Canada. International orders are added as quick-strike drops throughout the year." } },
+        "group_returns": { "type": "heading", "settings": { "group_title": "Returns & Exchanges" } },
+        "q_return": { "type": "question", "settings": { "question": "Can I return an item?", "answer": "Yes. Unused, undamaged pieces may be returned within 30 days of delivery for a full refund or exchange. Seconds and final-sale items are excluded." } },
+        "q_damaged": { "type": "question", "settings": { "question": "My piece arrived damaged. What now?", "answer": "We pack every piece by hand in plastic-free, compostable wraps. If something arrives broken, email a photo within 3 days and we will replace it free of charge." } },
+        "group_care": { "type": "heading", "settings": { "group_title": "Care & Lifetime Guide" } },
+        "q_care": { "type": "question", "settings": { "question": "Are Terra pieces dishwasher and microwave safe?", "answer": "Yes. Every piece is twice vitrified at 2200°F, making it dishwasher, microwave and oven safe. Avoid direct flame and sudden temperature shocks." } },
+        "q_lead_free": { "type": "question", "settings": { "question": "Are the glazes lead-free?", "answer": "Entirely. We use 100% lead-free, food-safe clay and glazes, and every batch is fired to food-safe certification standards." } },
+        "group_studio": { "type": "heading", "settings": { "group_title": "The Studio" } },
+        "q_apprentice": { "type": "question", "settings": { "question": "How is Terra Studios made?", "answer": "Every piece is hand-pressed, glazed and fired in local workshops by our studio apprentices. This is why slight variations in form and glaze are part of the charm — no two pieces are identical." } },
+        "q_sourcing": { "type": "question", "settings": { "question": "Where are your materials sourced?", "answer": "All clay comes from local, ethical mineral reserves and our packaging is 100% plastic-free, recyclable and compostable." } }
+      },
+      "block_order": ["group_shipping", "q_ship", "q_where", "group_returns", "q_return", "q_damaged", "group_care", "q_care", "q_lead_free", "group_studio", "q_apprentice", "q_sourcing"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

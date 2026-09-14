@@ -1,0 +1,80 @@
+{% style %}
+  #TerraFaq-{{ section.id }} { --terra-faq-bg: {{ section.settings.background }}; --terra-faq-text: {{ section.settings.text_color }}; --terra-faq-muted: {{ section.settings.muted_color }}; --terra-faq-accent: {{ section.settings.accent_color }}; --terra-faq-line: {{ section.settings.line_color }}; --terra-faq-padding: {{ section.settings.padding }}px; }
+{% endstyle %}
+
+{{ 'faq.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraFaq-{{ section.id }}" class="terra-faq">
+  <div class="terra-faq__inner">
+    {% if section.settings.eyebrow != blank %}<p class="terra-faq__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    {% if section.settings.heading != blank %}<h2 class="terra-faq__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>{% endif %}
+    {% if section.settings.text != blank %}<div class="terra-faq__intro">{{ section.settings.text | escape | newline_to_br }}</div>{% endif %}
+
+    <div class="terra-faq__list">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'question' %}
+            <details class="terra-faq__item" {{ block.shopify_attributes }}>
+              <summary class="terra-faq__question">
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="terra-faq__toggle" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg>
+                </span>
+              </summary>
+              <div class="terra-faq__answer">{{ block.settings.answer | escape | newline_to_br }}</div>
+            </details>
+          {% when 'heading' %}
+            <h3 class="terra-faq__group" {{ block.shopify_attributes }}>{{ block.settings.group_title | escape }}</h3>
+        {% endcase %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.footer_text != blank and section.settings.footer_link_label != blank %}
+      <p class="terra-faq__footer">
+        {{ section.settings.footer_text | escape }}
+        {% if section.settings.footer_link_url != blank %}<a href="{{ section.settings.footer_link_url | escape }}">{{ section.settings.footer_link_label | escape }}</a>{% endif %}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer care" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Frequently asked\nquestions" },
+    { "type": "textarea", "id": "text", "label": "Intro text", "default": "Everything you need to know about shipping, care and our studio. Can't find an answer? Reach out and the team will help." },
+    { "type": "text", "id": "footer_text", "label": "Footer text", "default": "Still have a question?" },
+    { "type": "text", "id": "footer_link_label", "label": "Footer link label", "default": "Contact support" },
+    { "type": "url", "id": "footer_link_url", "label": "Footer link URL" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 40, "max": 160, "step": 2, "unit": "px", "default": 96 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" },
+    { "type": "color", "id": "line_color", "label": "Divider color", "default": "#e9e4dd" }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question", "settings": [{ "type": "text", "id": "question", "label": "Question", "default": "When will my order ship?" }, { "type": "textarea", "id": "answer", "label": "Answer", "default": "Orders are hand-packed within 2–3 business days. Domestic orders over $150 ship free, and most arrive within 5–7 business days." }] },
+    { "type": "heading", "name": "Group heading", "settings": [{ "type": "text", "id": "group_title", "label": "Heading", "default": "Shipping & Delivery" }] }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Terra FAQ",
+      "blocks": [
+        { "type": "heading", "settings": { "group_title": "Shipping & Delivery" } },
+        { "type": "question", "settings": { "question": "When will my order ship?", "answer": "Orders are hand-packed within 2–3 business days. Domestic orders over $150 ship free, and most arrive within 5–7 business days." } },
+        { "type": "question", "settings": { "question": "Where do you ship?", "answer": "We currently ship across the US and Canada. International orders are added as quick-strike drops throughout the year." } },
+        { "type": "heading", "settings": { "group_title": "Returns & Exchanges" } },
+        { "type": "question", "settings": { "question": "Can I return an item?", "answer": "Yes. Unused, undamaged pieces may be returned within 30 days of delivery for a full refund or exchange. Seconds and final-sale items are excluded." } },
+        { "type": "question", "settings": { "question": "My piece arrived damaged. What now?", "answer": "We pack every piece by hand in plastic-free, compostable wraps. If something arrives broken, email a photo within 3 days and we will replace it free of charge." } },
+        { "type": "heading", "settings": { "group_title": "Care & Lifetime Guide" } },
+        { "type": "question", "settings": { "question": "Are Terra pieces dishwasher and microwave safe?", "answer": "Yes. Every piece is twice vitrified at 2200°F, making it dishwasher, microwave and oven safe. Avoid direct flame and sudden temperature shocks." } },
+        { "type": "question", "settings": { "question": "Are the glazes lead-free?", "answer": "Entirely. We use 100% lead-free, food-safe clay and glazes, and every batch is fired to food-safe certification standards." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
