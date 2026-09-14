@@ -1,37 +1,73 @@
 {{ 'hero.css' | asset_url | stylesheet_tag }}
 
-{%- assign proof_count = 0 -%}
-{%- for block in section.blocks -%}
-  {%- if block.type == 'proof' -%}
-    {%- assign proof_count = proof_count | plus: 1 -%}
-  {%- endif -%}
-{%- endfor -%}
+{%- liquid
+  assign proof_count = 0
+  assign image_count = 0
+  for block in section.blocks
+    if block.type == 'stat'
+      assign proof_count = proof_count | plus: 1
+    elsif block.type == 'image'
+      assign image_count = image_count | plus: 1
+    endif
+  endfor
+-%}
 
 <section class="terra-hero terra-hero--{{ section.settings.image_position }}">
-  <div class="terra-hero__copy">
-    {% content_for 'block', type: 'heading', id: 'heading' %}
-
-    <div class="terra-hero__actions">
-      {% if section.settings.primary_label != blank %}
-        <a class="terra-hero__button terra-hero__button--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label | escape }}</a>
-      {% endif %}
-      {% if section.settings.secondary_label != blank %}
-        <a class="terra-hero__button terra-hero__button--secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label | escape }}</a>
-      {% endif %}
-    </div>
-
-    {% if proof_count > 0 %}
-      <div class="terra-hero__proof" aria-label="Studio details">
-        {% content_for 'blocks' %}
-      </div>
+  <div class="terra-hero__media">
+    {% if image_count > 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'image' %}
+          <div class="terra-hero__media-item" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 1800 | image_tag: class: 'terra-hero__image', widths: '600, 800, 1100, 1400, 1800', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: block.settings.image.alt }}
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
     {% endif %}
   </div>
 
-  <div class="terra-hero__media">
-    {% if section.settings.image != blank %}
-      {{ section.settings.image | image_url: width: 1800 | image_tag: class: 'terra-hero__image', widths: '600, 800, 1100, 1400, 1800', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image.alt }}
-    {% else %}
-      {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
+  <div class="terra-hero__copy">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'heading' %}
+          <div class="terra-hero__heading" {{ block.shopify_attributes }}>
+            {% if block.settings.eyebrow != blank %}
+              <p class="terra-hero__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+            {% endif %}
+            {% if block.settings.heading != blank %}
+              <h1 class="terra-hero__title">{{ block.settings.heading | escape | newline_to_br }}</h1>
+            {% endif %}
+          </div>
+        {% when 'text' %}
+          <div class="terra-hero__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+        {% when 'buttons' %}
+          <div class="terra-hero__actions" {{ block.shopify_attributes }}>
+            {% if block.settings.primary_label != blank %}
+              <a class="terra-hero__button terra-hero__button--primary" href="{{ block.settings.primary_link }}">{{ block.settings.primary_label | escape }}</a>
+            {% endif %}
+            {% if block.settings.secondary_label != blank %}
+              <a class="terra-hero__button terra-hero__button--secondary" href="{{ block.settings.secondary_link }}">{{ block.settings.secondary_label | escape }}</a>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+
+    {% if proof_count > 0 %}
+      <div class="terra-hero__proof" aria-label="Studio details">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat' %}
+            <div class="terra-hero__proof-item" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.heading | escape }}</strong>
+              <span>{{ block.settings.text | escape }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </section>
@@ -40,25 +76,70 @@
 {
   "name": "Terra hero",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Hero image" },
-    { "type": "select", "id": "image_position", "label": "Image position", "default": "right", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }] },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The autumn collection" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Tactile stoneware\nshaped by hand" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Organic curves, textured glazes, and timeless forms crafted to bring warmth and\neveryday beauty to your morning ritual." },
-    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop collection" },
-    { "type": "url", "id": "primary_link", "label": "Primary button link" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Watch the process" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "default": "right",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ]
+    }
   ],
-  "blocks": [{ "type": "heading" }, { "type": "proof" }],
-  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The autumn collection" },
+        { "type": "textarea", "id": "heading", "label": "Heading", "default": "Tactile stoneware\nshaped by hand" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Organic curves, textured glazes, and timeless forms crafted to bring warmth and everyday beauty to your morning ritual.</p>" }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "settings": [
+        { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Shop collection" },
+        { "type": "url", "id": "primary_link", "label": "Primary button link" },
+        { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Watch the process" },
+        { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Proof stat",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "100%" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Lead-Free Clay" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
   "presets": [
     {
       "name": "Terra hero",
       "blocks": [
-        { "type": "heading", "id": "heading", "static": true, "settings": { "heading_tag": "h1", "heading_size_desktop": "display", "heading_size_mobile": "display", "width": "custom", "custom_width": 650, "alignment": "left" } },
-        { "type": "proof", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
-        { "type": "proof", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
+        { "type": "image", "settings": {} },
+        { "type": "heading", "settings": { "eyebrow": "The autumn collection", "heading": "Tactile stoneware\nshaped by hand" } },
+        { "type": "text", "settings": { "text": "<p>Organic curves, textured glazes, and timeless forms crafted to bring warmth and everyday beauty to your morning ritual.</p>" } },
+        { "type": "buttons", "settings": { "primary_label": "Shop collection", "primary_link": "/collections/all", "secondary_label": "Watch the process", "secondary_link": "/pages/our-story" } },
+        { "type": "stat", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
+        { "type": "stat", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
       ]
     }
   ]

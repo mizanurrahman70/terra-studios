@@ -11,6 +11,7 @@
 .terra-hero--left .terra-hero__media {
   order: 1;
 }
+
 .terra-hero__copy {
   align-items: flex-start;
   display: flex;
@@ -18,32 +19,48 @@
   justify-content: center;
   padding: clamp(56px, 8vw, 130px) clamp(36px, 6vw, 86px);
 }
-.terra-hero .heading-group {
+.terra-hero__heading {
   max-width: 650px;
   width: 100%;
 }
-.terra-hero .heading-group__eyebrow {
+.terra-hero__eyebrow {
   align-items: center;
+  color: #c4592e;
   display: flex;
+  font-size: 11px;
+  font-weight: 700;
   gap: 10px;
-  margin-bottom: 28px;
+  letter-spacing: .02em;
+  margin: 0 0 28px;
+  text-transform: uppercase;
 }
-.terra-hero .heading-group__eyebrow::before {
+.terra-hero__eyebrow::before {
   background: currentcolor;
   content: '';
   display: block;
   height: 1px;
   width: 24px;
 }
-.terra-hero .heading-group__text {
+.terra-hero__title {
+  font-size: clamp(42px, 4.2vw, 66px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: .97;
+  margin: 0;
+  max-width: 650px;
+}
+.terra-hero__text {
   color: #706b66;
   font-size: 17px;
   line-height: 1.55;
   margin-top: 28px;
   max-width: 650px;
 }
-.terra-hero__proof [data-block-type='heading'] {
-  display: none;
+.terra-hero__text p {
+  margin: 0;
+}
+.terra-hero__text p + p {
+  margin-top: 1em;
 }
 .terra-hero__actions {
   display: flex;
@@ -105,13 +122,22 @@
   color: #77716b;
   margin-top: 5px;
 }
+
 .terra-hero__media {
   background: #dfd3c1;
+  display: flex;
+  flex-direction: column;
   min-height: 540px;
   overflow: hidden;
 }
+.terra-hero__media-item {
+  flex: 1;
+  min-height: 0;
+}
 .terra-hero__image,
-.terra-hero__placeholder {
+.terra-hero__placeholder,
+.terra-hero__media-item img,
+.terra-hero__media-item svg {
   display: block;
   height: 100%;
   object-fit: cover;
