@@ -21,13 +21,13 @@
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 1800 | image_tag: class: 'terra-hero__image', widths: '600, 800, 1100, 1400, 1800', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high', alt: block.settings.image.alt }}
             {% else %}
-              {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
+              {{ 'hero-default.png' | asset_url | img_tag: 'Default hero image', 'terra-hero__image' }}
             {% endif %}
           </div>
         {% endif %}
       {% endfor %}
     {% else %}
-      {{ 'collection-1' | placeholder_svg_tag: 'terra-hero__placeholder' }}
+      {{ 'hero-default.png' | asset_url | img_tag: 'Default hero image', 'terra-hero__image' }}
     {% endif %}
   </div>
 
