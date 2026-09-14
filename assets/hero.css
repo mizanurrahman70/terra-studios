@@ -11,6 +11,12 @@
 .terra-hero--left .terra-hero__media {
   order: 1;
 }
+.terra-hero--right .terra-hero__copy {
+  order: 1;
+}
+.terra-hero--right .terra-hero__media {
+  order: 2;
+}
 
 .terra-hero__copy {
   align-items: flex-start;
