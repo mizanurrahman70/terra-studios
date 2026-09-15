@@ -1,37 +1,102 @@
-{% comment %}
-  This section is used in the cart template to render /cart page with an
-  overview of the items in customer's cart.
+{% style %}
+  #TerraCart-{{ section.id }} { --terra-cart-bg: {{ section.settings.background }}; --terra-cart-text: {{ section.settings.text_color }}; --terra-cart-muted: {{ section.settings.muted_color }}; --terra-cart-accent: {{ section.settings.accent_color }}; --terra-cart-btn: {{ section.settings.button_color }}; --terra-cart-btn-text: {{ section.settings.button_text_color }}; --terra-cart-padding: {{ section.settings.padding }}px; }
+{% endstyle %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
-{% endcomment %}
+{{ 'cart.css' | asset_url | stylesheet_tag }}
 
-<h1>{{ 'cart.title' | t }}</h1>
+<section id="TerraCart-{{ section.id }}" class="terra-cart">
+  <header class="terra-cart__header">
+    {% if section.settings.eyebrow != blank %}<p class="terra-cart__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1>{{ 'cart.title' | t }}</h1>
+    {% if cart.item_count > 0 %}
+      <p class="terra-cart__count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</p>
+    {% endif %}
+  </header>
 
-<form action="{{ routes.cart_url }}" method="post">
-  <table>
-    {% for item in cart.items %}
-      <tr>
-        <td>
-          {% render 'image', image: item.image, url: item.url %}
-        </td>
-        <td>
-          <p>{{ item.product.title }}</p>
-          {{ 'cart.remove' | t | link_to: item.url_to_remove }}
-        </td>
-        <td>
-          <input type="text" name="updates[]" value="{{ item.quantity }}">
-          <input type="submit" value="{{ 'cart.update' | t }}">
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+  {% if cart.item_count > 0 %}
+    <form action="{{ routes.cart_url }}" method="post" class="terra-cart__form">
+      <div class="terra-cart__grid">
+        <div class="terra-cart__items" role="list">
+          {% for item in cart.items %}
+            <div class="terra-cart__item" role="listitem">
+              <div class="terra-cart__item-media">
+                {% if item.image != blank %}
+                  {% render 'image', image: item.image, url: item.url, width: 240, height: 240, crop: 'center' %}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
 
-  <input type="submit" name="checkout" value="{{ 'cart.checkout' | t }}">
-</form>
+              <div class="terra-cart__item-info">
+                <h2 class="terra-cart__item-title">
+                  <a href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                </h2>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="terra-cart__item-variant">{{ item.variant.title | escape }}</p>
+                {% endunless %}
+
+                {% if item.original_line_price > item.final_line_price %}
+                  <p class="terra-cart__item-price terra-cart__item-price--sale">
+                    <s>{{ item.original_line_price | money }}</s>
+                    <span>{{ item.final_line_price | money }}</span>
+                  </p>
+                {% else %}
+                  <p class="terra-cart__item-price">
+                    <span>{{ item.final_line_price | money }}</span>
+                  </p>
+                {% endif %}
+              </div>
+
+              <div class="terra-cart__item-actions">
+                <label class="visually-hidden" for="TerraQty-{{ item.key }}">{{ 'cart.quantity' | t }}</label>
+                <input class="terra-cart__qty" id="TerraQty-{{ item.key }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric">
+                <a class="terra-cart__item-remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <aside class="terra-cart__summary" aria-label="Order summary">
+          <div class="terra-cart__summary-inner">
+            <div class="terra-cart__subtotal">
+              <span>{{ 'cart.subtotal' | t }}</span>
+              <strong>{{ cart.total_price | money }}</strong>
+            </div>
+            <p class="terra-cart__shipping-note">{{ 'cart.shipping_note' | t }}</p>
+
+            <button class="terra-cart__checkout" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+
+            <div class="terra-cart__dynamic">{{ content_for_additional_checkout_buttons }}</div>
+
+            <button class="terra-cart__update" type="submit" name="update">{{ 'cart.update' | t }}</button>
+
+            <a class="terra-cart__continue" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue_shopping' | t }}</a>
+          </div>
+        </aside>
+      </div>
+    </form>
+  {% else %}
+    <div class="terra-cart__empty">
+      <h2>{{ 'cart.empty' | t }}</h2>
+      <p>{{ 'cart.empty_subtitle' | t }}</p>
+      <a class="terra-cart__empty-link" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue_shopping' | t }}</a>
+    </div>
+  {% endif %}
+</section>
 
 {% schema %}
 {
   "name": "t:general.cart",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your order" },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 150, "step": 2, "unit": "px", "default": 88 },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f6f1e8" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Muted text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" },
+    { "type": "header", "content": "Checkout button" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#c4592e" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" }
+  ]
 }
 {% endschema %}

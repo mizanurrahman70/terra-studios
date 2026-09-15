@@ -52,6 +52,7 @@
       {% endif %}
 
       {% form 'product', product, class: 'terra-product__form', id: product_form_id %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-terra-variant-id>
         {% unless product.has_only_default_variant %}
           {% for option in product.options_with_values %}
             <div class="terra-product__option">
@@ -114,6 +115,7 @@
     var compareEl = root.querySelector('[data-terra-compare]');
     var saveEl = root.querySelector('[data-terra-save]');
     var addBtn = root.querySelector('[data-terra-add]');
+    var idInput = root.querySelector('[data-terra-variant-id]');
     if (selects.length && priceEl) {
       function findVariant() {
         var values = Array.prototype.map.call(selects, function (s) { return s.value; });
@@ -134,6 +136,7 @@
           addBtn.disabled = !v.available;
           addBtn.textContent = v.available ? 'Add to cart' : 'Sold out';
         }
+        if (idInput) idInput.value = v.id;
       }
       selects.forEach(function (s) { s.addEventListener('change', render); });
       render();
