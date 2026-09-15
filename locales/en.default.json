@@ -15,9 +15,15 @@
   },
   "cart": {
     "checkout": "Checkout",
+    "continue_shopping": "Continue shopping",
+    "empty": "Your cart is empty",
+    "empty_subtitle": "Add a few handmade pieces to get started.",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "shipping_note": "Taxes and shipping calculated at checkout.",
+    "subtotal": "Subtotal",
     "title": "Cart",
-    "update": "Update",
-    "remove": "Remove"
+    "update": "Update"
   },
   "customers": {
     "login": {
@@ -28,7 +34,14 @@
     }
   },
   "collections": {
-    "title": "Collections"
+    "title": "Collections",
+    "apply": "Apply",
+    "clear_all": "Clear all",
+    "filters": "Filters",
+    "from": "From",
+    "products": "Products",
+    "sort_by": "Sort by",
+    "to": "To"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

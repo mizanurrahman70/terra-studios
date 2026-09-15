@@ -39,6 +39,17 @@
       "block_order": ["sustainable", "durability", "artisan", "packaging"],
       "settings": { "padding": 46, "background": "#f8f7f4", "text_color": "#2b2925", "muted_color": "#77716b", "accent_color": "#c4592e" }
     },
+    "feature_list": {
+      "type": "terra-feature-list",
+      "blocks": {
+        "hand_crafted": { "type": "feature", "settings": { "icon": "leaf", "title": "Crafted by hand", "text": "Shaped on the wheel by studio artisans, so no two pieces are exactly alike.", "link": "/pages/our-story" } },
+        "made_to_last": { "type": "feature", "settings": { "icon": "shield", "title": "Made to last", "text": "Twice fired at 2200°F, every piece is built for the dishwasher and the everyday." } },
+        "plastic_free": { "type": "feature", "settings": { "icon": "truck", "title": "Ships plastic-free", "text": "Compostable packing and carbon-neutral delivery on every order." } },
+        "lead_free": { "type": "feature", "settings": { "icon": "droplet", "title": "Lead-free glazes", "text": "100% lead-free, food-safe clay and glazes on every single batch." } }
+      },
+      "block_order": ["hand_crafted", "made_to_last", "plastic_free", "lead_free"],
+      "settings": { "eyebrow": "Why Terra", "heading": "Built to last a lifetime", "padding": 88, "background": "#ffffff", "text_color": "#2b2925", "muted_color": "#77716b", "accent_color": "#c4592e" }
+    },
     "featured_products": {
       "type": "terra-featured-products",
       "blocks": {
@@ -80,6 +91,19 @@
         "muted_color": "#77716b",
         "accent_color": "#c4592e"
       }
+    },
+    "gallery": {
+      "type": "terra-gallery",
+      "blocks": {
+        "kiln_glaze": { "type": "image", "settings": { "caption": "Kiln glaze study" } },
+        "wheel_throwing": { "type": "image", "settings": { "caption": "Wheel throwing, batch 05" } },
+        "fired_ready": { "type": "image", "settings": { "caption": "Fired & ready" } },
+        "packing_table": { "type": "image", "settings": { "caption": "Hand-packing workshop" } },
+        "glaze_room": { "type": "image", "settings": { "caption": "Inside the glaze room" } },
+        "kiln_opening": { "type": "image", "settings": { "caption": "Kiln opening day" } }
+      },
+      "block_order": ["kiln_glaze", "wheel_throwing", "fired_ready", "packing_table", "glaze_room", "kiln_opening"],
+      "settings": { "eyebrow": "Inside the studio", "heading": "From dust to dinnerware", "columns": 3, "gap": 20, "padding": 88, "background": "#ffffff", "text_color": "#2b2925", "muted_color": "#77716b", "accent_color": "#c4592e" }
     },
     "testimonials": {
       "type": "terra-testimonials",
@@ -129,5 +153,5 @@
       }
     }
   },
-  "order": ["hero", "collection_circles", "trust_bar", "featured_products", "heritage_split", "testimonials", "faq", "newsletter"]
+  "order": ["hero", "collection_circles", "trust_bar", "feature_list", "featured_products", "heritage_split", "gallery", "testimonials", "faq", "newsletter"]
 }

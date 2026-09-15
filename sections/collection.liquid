@@ -3,6 +3,14 @@
 {% endstyle %}
 
 {{ 'featured-products.css' | asset_url | stylesheet_tag }}
+{{ 'collection.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign filter_layout = 'row'
+  if section.settings.filter_layout != blank
+    assign filter_layout = section.settings.filter_layout
+  endif
+%}
 
 <section id="TerraCollection-{{ section.id }}" class="terra-collection">
   <header class="terra-collection__header">
@@ -11,81 +19,112 @@
     {% if collection.description != blank %}<div class="terra-collection__description">{{ collection.description }}</div>{% endif %}
   </header>
 
-  {% paginate collection.products by section.settings.products_per_page %}
-    {% if collection.products_count > 0 %}
-      <div class="terra-collection__grid">
-        {% for product in collection.products %}
-          {% liquid
-            assign is_sale = false
-            if product.compare_at_price > product.price
-              assign is_sale = true
-            endif
-          %}
-          <article class="terra-product-card">
-            <div class="terra-product-card__media">
-              {% if is_sale and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--sale">Save</span>{% endif %}
-              {% if product.available == false and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--soldout">Sold out</span>{% endif %}
-              {% if product.available and product.tags contains 'New' and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--new">New</span>{% endif %}
-              <a href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
-                {% if product.featured_image != blank %}
-                  {{ product.featured_image | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 1000px) 25vw, (min-width: 750px) 50vw, 80vw', loading: 'lazy', alt: product.featured_image.alt }}
-                {% else %}
-                  {{ 'product-1' | placeholder_svg_tag }}
-                {% endif %}
-              </a>
-              {% if section.settings.show_quick_add and product.available and product.has_only_default_variant %}
-                {% form 'product', product, class: 'terra-product-card__form' %}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  <button type="submit">Quick add <span aria-hidden="true">+</span><span class="visually-hidden"> {{ product.title | escape }}</span></button>
-                {% endform %}
-              {% endif %}
-            </div>
-            <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
-            <p class="terra-product-card__price{% if is_sale %} terra-product-card__price--sale{% endif %}">
-              <span>{{ product.price | money }}</span>{% if is_sale %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
-            </p>
-          </article>
-        {% endfor %}
-      </div>
-
-      {% if paginate.pages > 1 %}
-        <nav class="terra-collection__pagination" aria-label="Pagination">
-          {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="terra-collection__page terra-collection__page--prev" aria-label="Previous page">&larr;</a>{% endif %}
-          {% for part in paginate.parts %}
-            {% if part.is_link %}
-              {{ part.title | link_to: part.url, class: 'terra-collection__page' }}
-            {% elsif part.title == paginate.current_page %}
-              <span class="terra-collection__page terra-collection__page--current" aria-current="page">{{ part.title }}</span>
-            {% else %}
-              <span class="terra-collection__page terra-collection__page--gap">{{ part.title }}</span>
-            {% endif %}
-          {% endfor %}
-          {% if paginate.next %}<a href="{{ paginate.next.url }}" class="terra-collection__page terra-collection__page--next" aria-label="Next page">&rarr;</a>{% endif %}
-        </nav>
-      {% endif %}
-    {% else %}
-      <p class="terra-collection__empty">No products in this collection yet.</p>
+  <div class="terra-collection__layout{% if section.settings.show_filters %} terra-collection__layout--{{ filter_layout }}{% endif %}">
+    {% if section.settings.show_filters %}
+      {% render 'terra-collection-filters', layout: filter_layout %}
     {% endif %}
-  {% endpaginate %}
+
+    <div class="terra-collection__content">
+      {% if section.settings.show_filters %}
+        <div class="terra-collection__toolbar">
+          <p class="terra-collection__count">{{ collection.products_count }} {{ 'collections.products' | t }}</p>
+          <form class="terra-collection__sort" action="{{ collection.url }}" method="get" data-terra-sort-form>
+            <label class="visually-hidden" for="TerraSort-{{ section.id }}">{{ 'collections.sort_by' | t }}</label>
+            <select id="TerraSort-{{ section.id }}" name="sort_by" data-terra-sort>
+              {% for option in collection.sort_options %}
+                <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+      {% endif %}
+
+      {% paginate collection.products by section.settings.products_per_page %}
+        {% if collection.products_count > 0 %}
+          <div class="terra-collection__grid">
+            {% for product in collection.products %}
+              {% liquid
+                assign is_sale = false
+                if product.compare_at_price > product.price
+                  assign is_sale = true
+                endif
+              %}
+              <article class="terra-product-card">
+                <div class="terra-product-card__media">
+                  {% if is_sale and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--sale">Save</span>{% endif %}
+                  {% if product.available == false and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--soldout">Sold out</span>{% endif %}
+                  {% if product.available and product.tags contains 'New' and section.settings.show_badges %}<span class="terra-product-card__badge terra-product-card__badge--new">New</span>{% endif %}
+                  <a href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+                    {% if product.featured_image != blank %}
+                      {{ product.featured_image | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 1000px) 25vw, (min-width: 750px) 50vw, 80vw', loading: 'lazy', alt: product.featured_image.alt }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {% endif %}
+                  </a>
+                  {% if section.settings.show_quick_add and product.available and product.has_only_default_variant %}
+                    {% form 'product', product, class: 'terra-product-card__form' %}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                      <button type="submit">Quick add <span aria-hidden="true">+</span><span class="visually-hidden"> {{ product.title | escape }}</span></button>
+                    {% endform %}
+                  {% endif %}
+                </div>
+                <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+                <p class="terra-product-card__price{% if is_sale %} terra-product-card__price--sale{% endif %}">
+                  <span>{{ product.price | money }}</span>{% if is_sale %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+              </article>
+            {% endfor %}
+          </div>
+
+          {% if paginate.pages > 1 %}
+            <nav class="terra-collection__pagination" aria-label="Pagination">
+              {% if paginate.previous %}<a href="{{ paginate.previous.url }}" class="terra-collection__page terra-collection__page--prev" aria-label="Previous page">&larr;</a>{% endif %}
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  {{ part.title | link_to: part.url, class: 'terra-collection__page' }}
+                {% elsif part.title == paginate.current_page %}
+                  <span class="terra-collection__page terra-collection__page--current" aria-current="page">{{ part.title }}</span>
+                {% else %}
+                  <span class="terra-collection__page terra-collection__page--gap">{{ part.title }}</span>
+                {% endif %}
+              {% endfor %}
+              {% if paginate.next %}<a href="{{ paginate.next.url }}" class="terra-collection__page terra-collection__page--next" aria-label="Next page">&rarr;</a>{% endif %}
+            </nav>
+          {% endif %}
+        {% else %}
+          <p class="terra-collection__empty">No products in this collection yet.</p>
+        {% endif %}
+      {% endpaginate %}
+    </div>
+  </div>
 </section>
 
-{% stylesheet %}
-  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  .terra-collection{background:var(--terra-collection-bg,#fff);color:var(--terra-collection-text,#2b2925);grid-column:1/-1;padding:var(--terra-collection-padding,88px) clamp(20px,5vw,82px)}
-  .terra-collection__header{display:flex;flex-direction:column;gap:10px;margin:0 auto 40px;max-width:1300px}
-  .terra-collection__eyebrow{color:var(--terra-collection-accent,#c4592e);font-size:10px;font-weight:800;letter-spacing:.02em;margin:0;text-transform:uppercase}
-  .terra-collection h1{font-size:clamp(30px,3vw,43px);font-weight:800;letter-spacing:-.055em;line-height:1;margin:0}
-  .terra-collection__description{color:var(--terra-collection-muted,#77716b);font-size:14px;line-height:1.6;margin:6px 0 0;max-width:640px}
-  .terra-collection__grid{display:grid;gap:24px;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 auto;max-width:1300px}
-  .terra-collection__pagination{align-items:center;display:flex;gap:6px;justify-content:center;list-style:none;margin:48px auto 0;max-width:1300px;padding:0}
-  .terra-collection__page{align-items:center;border:1px solid #e3ded8;color:var(--terra-collection-text,#2b2925);display:inline-flex;font-size:12px;font-weight:700;justify-content:center;min-height:38px;min-width:38px;padding:0 10px;text-decoration:none}
-  .terra-collection__page--current{background:var(--terra-collection-accent,#c4592e);border-color:var(--terra-collection-accent,#c4592e);color:#fff}
-  .terra-collection__page--gap{border-color:transparent}
-  .terra-collection__page:hover,.terra-collection__page:focus-visible{border-color:var(--terra-collection-accent,#c4592e);color:var(--terra-collection-accent,#c4592e)}
-  .terra-collection__empty{color:var(--terra-collection-muted,#77716b);margin:0 auto;max-width:1300px}
-  @media(max-width:899px){.terra-collection__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:520px){.terra-collection{padding-block:max(50px,var(--terra-collection-padding,88px))}.terra-collection__header{margin-bottom:28px}.terra-collection__grid{gap:16px}}
-{% endstylesheet %}
+<script>
+  (function () {
+    var filterForm = document.querySelector('[data-terra-filter-form]');
+    var sortForm = document.querySelector('[data-terra-sort-form]');
+    if (!sortForm) return;
+    var sort = sortForm.querySelector('[data-terra-sort]');
+    if (!sort) return;
+
+    sort.addEventListener('change', function () {
+      if (filterForm) {
+        var params = new URLSearchParams(new FormData(filterForm));
+        params.set('sort_by', sort.value);
+        window.location.href = filterForm.action + '?' + params.toString();
+      } else {
+        sortForm.submit();
+      }
+    });
+
+    if (filterForm) {
+      var sortField = filterForm.querySelector('[data-terra-sort-field]');
+      filterForm.addEventListener('submit', function () {
+        if (sortField) sortField.value = sort.value;
+      });
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -93,6 +132,11 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "show_filters", "label": "Show product filters", "default": true },
+    { "type": "select", "id": "filter_layout", "label": "Filter layout", "options": [
+      { "value": "row", "label": "Row (top bar)" },
+      { "value": "column", "label": "Column (sidebar)" }
+    ], "default": "row" },
     { "type": "checkbox", "id": "show_badges", "label": "Show sale, sold-out, and New badges", "default": true },
     { "type": "checkbox", "id": "show_quick_add", "label": "Show quick add for single-variant products", "default": true },
     { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 150, "step": 2, "unit": "px", "default": 88 },

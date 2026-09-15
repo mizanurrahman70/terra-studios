@@ -1,19 +1,29 @@
-{% comment %}
-  This section is used in the 404 template to render page shown when customers
-  enter an invalid store URL.
+{% style %}
+  .terra-error-{{ section.id }} { --404-bg: #f8f7f4; --404-heading: #2b2925; --404-muted: #77716b; --404-accent: #c4592e; --404-padding: 120px; background: var(--404-bg); color: var(--404-heading); grid-column: 1 / -1; padding: var(--404-padding) clamp(20px, 5vw, 82px); }
+  .terra-error-{{ section.id }} .terra-error__inner { margin: 0 auto; max-width: 780px; text-align: center; }
+  .terra-error-{{ section.id }} .terra-error__code { color: var(--404-accent); font-size: clamp(64px, 10vw, 120px); font-weight: 800; letter-spacing: -.06em; line-height: .9; margin: 0; }
+  .terra-error-{{ section.id }} h1 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -.05em; line-height: 1.08; margin: 26px 0 0; }
+  .terra-error-{{ section.id }} p { color: var(--404-muted); font-size: 15px; line-height: 1.6; margin: 16px auto 0; max-width: 46ch; }
+  .terra-error-{{ section.id }} .terra-error__links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 32px; }
+  .terra-error-{{ section.id }} .terra-error__button { border-radius: 2px; display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .02em; padding: 13px 22px; text-decoration: none; }
+  .terra-error-{{ section.id }} .terra-error__button--primary { background: var(--404-heading); color: #fff; }
+  .terra-error-{{ section.id }} .terra-error__button--primary:hover { background: var(--404-accent); }
+  .terra-error-{{ section.id }} .terra-error__button--secondary { border: 1px solid #cbbfaf; color: var(--404-heading); }
+  .terra-error-{{ section.id }} .terra-error__button--secondary:hover { border-color: var(--404-accent); color: var(--404-accent); }
+{% endstyle %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/404
-{% endcomment %}
-
-<h1>{{ '404.title' | t }}</h1>
-
-<p>
-  {{ '404.not_found' | t }}
-</p>
-
-<a href="{{ routes.all_products_collection_url }}">
-  {{ '404.back_to_shopping' | t }}
-</a>
+<div class="terra-error-{{ section.id }}">
+  <div class="terra-error__inner">
+    <p class="terra-error__code">404</p>
+    <h1>{{ '404.title' | t }}</h1>
+    <p>{{ '404.not_found' | t }}</p>
+    <div class="terra-error__links">
+      <a class="terra-error__button terra-error__button--primary" href="{{ routes.all_products_collection_url }}">{{ '404.back_to_shopping' | t }}</a>
+      <a class="terra-error__button terra-error__button--secondary" href="{{ routes.root_url }}">Go to homepage</a>
+      <a class="terra-error__button terra-error__button--secondary" href="/pages/contact">Contact the studio</a>
+    </div>
+  </div>
+</div>
 
 {% schema %}
 {
