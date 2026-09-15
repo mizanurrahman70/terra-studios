@@ -1,0 +1,49 @@
+{%- assign filter_layout = layout | default: 'row' -%}
+{% if collection.filters.size > 0 %}
+  <aside class="terra-collection__sidebar{% if filter_layout == 'row' %} terra-collection__sidebar--row{% endif %}">
+    <h2 class="visually-hidden">{{ 'collections.filters' | t }}</h2>
+    <form class="terra-collection__filters" action="{{ collection.url }}" method="get" data-terra-filter-form>
+      {% for filter in collection.filters %}
+        <details class="terra-collection__filter" {% if filter.active_values.size > 0 %}open{% endif %}>
+          <summary>{{ filter.label | escape }}</summary>
+          <div class="terra-collection__filter-body">
+            {% case filter.type %}
+              {% when 'boolean' %}
+                <label class="terra-collection__filter-value">
+                  <input type="checkbox" name="{{ filter.param_name }}" value="{{ filter.values.first.value }}" {% if filter.values.first.active %}checked{% endif %}>
+                  <span>{{ filter.values.first.label }} ({{ filter.values.first.count }})</span>
+                </label>
+              {% when 'list' %}
+                {% for value in filter.values %}
+                  <label class="terra-collection__filter-value">
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                    <span>{{ value.label }} ({{ value.count }})</span>
+                  </label>
+                {% endfor %}
+              {% when 'price_range' %}
+                <div class="terra-collection__price">
+                  <label>
+                    <span>{{ 'collections.from' | t }}</span>
+                    <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" placeholder="0">
+                  </label>
+                  <label>
+                    <span>{{ 'collections.to' | t }}</span>
+                    <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" min="0" max="{{ filter.range_max | money_without_currency | replace: ',', '' }}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}">
+                  </label>
+                </div>
+            {% endcase %}
+          </div>
+        </details>
+      {% endfor %}
+
+      <input type="hidden" name="sort_by" value="{{ collection.sort_by | default: 'manual' }}" data-terra-sort-field>
+
+      <div class="terra-collection__filter-actions">
+        <button class="terra-collection__filter-apply" type="submit">{{ 'collections.apply' | t }}</button>
+        {% if collection.filters.any_active_filters %}
+          <a class="terra-collection__filter-clear" href="{{ collection.url }}">{{ 'collections.clear_all' | t }}</a>
+        {% endif %}
+      </div>
+    </form>
+  </aside>
+{% endif %}

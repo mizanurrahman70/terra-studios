@@ -34,7 +34,14 @@
     }
   },
   "collections": {
-    "title": "Collections"
+    "title": "Collections",
+    "apply": "Apply",
+    "clear_all": "Clear all",
+    "filters": "Filters",
+    "from": "From",
+    "products": "Products",
+    "sort_by": "Sort by",
+    "to": "To"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
