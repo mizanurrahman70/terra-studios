@@ -13,7 +13,14 @@
           {% if block.settings.image != blank %}
             {{ block.settings.image | image_url: width: 360 | image_tag: widths: '120, 180, 240, 360', sizes: '(min-width: 750px) 150px, 100px', loading: 'lazy', alt: block.settings.title }}
           {% else %}
-            {{ 'collection-1' | placeholder_svg_tag }}
+            {% assign fallback_circle = 'gallery-1.webp' %}
+            {% assign fallback_title = block.settings.title | downcase %}
+            {% if fallback_title == 'dinnerware' %}{% assign fallback_circle = 'collection-dinnerware.jpg' %}
+            {% elsif fallback_title == 'drinkware' %}{% assign fallback_circle = 'collection-drinkware.jpg' %}
+            {% elsif fallback_title == 'serving bowls' %}{% assign fallback_circle = 'collection-serving-bowls.jpg' %}
+            {% elsif fallback_title == 'accessories' %}{% assign fallback_circle = 'collection-accessories.jpg' %}
+            {% endif %}
+            {{ fallback_circle | asset_url | img_tag: block.settings.title, 'terra-collection-circles__image-fallback' }}
           {% endif %}
         </span>
         <span>{{ block.settings.title | escape }}</span>
