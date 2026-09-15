@@ -1,17 +1,42 @@
-{% comment %}
-  This section is used in the page template to render store pages like About us
-  or Contact us.
+{% style %}
+  #TerraPage-{{ section.id }} { --terra-page-padding: {{ section.settings.padding }}px; --terra-page-width: {{ section.settings.max_width }}px; --terra-page-accent: {{ section.settings.accent_color }}; --terra-page-heading: {{ section.settings.heading_color }}; --terra-page-muted: {{ section.settings.text_color }}; }
+  #TerraPage-{{ section.id }} .terra-page__inner { margin: 0 auto; max-width: var(--terra-page-width); padding: var(--terra-page-padding) clamp(20px, 5vw, 82px); }
+  #TerraPage-{{ section.id }} .terra-page__eyebrow { color: var(--terra-page-accent); font-size: 10px; font-weight: 800; letter-spacing: .06em; margin: 0 0 14px; text-transform: uppercase; }
+  #TerraPage-{{ section.id }} h1 { font-size: clamp(32px, 4vw, 52px); letter-spacing: -.055em; line-height: 1.03; margin: 0 0 28px; }
+  #TerraPage-{{ section.id }} .terra-page__content { color: var(--terra-page-muted); font-size: 16px; line-height: 1.75; }
+  #TerraPage-{{ section.id }} .terra-page__content p { margin: 0 0 1.2em; }
+  #TerraPage-{{ section.id }} .terra-page__content h2, #TerraPage-{{ section.id }} .terra-page__content h3 { color: var(--terra-page-heading); letter-spacing: -.04em; margin: 1.6em 0 .6em; }
+  #TerraPage-{{ section.id }} .terra-page__content img { height: auto; max-width: 100%; }
+  #TerraPage-{{ section.id }} .terra-page__content a { color: var(--terra-page-accent); }
+{% endstyle %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
-{% endcomment %}
-
-<h1>{{ page.title }}</h1>
-
-{{ page.content }}
+<div id="TerraPage-{{ section.id }}">
+  <div class="terra-page__inner">
+    {% if section.settings.show_eyebrow and section.settings.eyebrow != blank %}
+      <p class="terra-page__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    {% if section.settings.show_title %}
+      <h1>{{ page.title }}</h1>
+    {% endif %}
+    {% if page.content != blank %}
+      <div class="terra-page__content">{{ page.content }}</div>
+    {% endif %}
+  </div>
+</div>
 
 {% schema %}
 {
   "name": "t:general.page",
-  "settings": []
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our story" },
+    { "type": "checkbox", "id": "show_eyebrow", "label": "Show eyebrow", "default": false },
+    { "type": "checkbox", "id": "show_title", "label": "Show page title", "default": true },
+    { "type": "range", "id": "max_width", "label": "Content width", "min": 480, "max": 1200, "step": 20, "unit": "px", "default": 820 },
+    { "type": "range", "id": "padding", "label": "Vertical spacing", "min": 30, "max": 160, "step": 2, "unit": "px", "default": 80 },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "presets": [{ "name": "t:general.page" }]
 }
 {% endschema %}

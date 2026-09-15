@@ -1,20 +1,38 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "sections": {
     "main": {
       "type": "page",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Terra Studios",
+        "show_eyebrow": true,
+        "show_title": true,
+        "max_width": 820,
+        "padding": 80,
+        "heading_color": "#2b2925",
+        "text_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay connected",
+        "heading": "Be the first to hear about Batch\n05",
+        "text": "Sign up for early catalog access, workshop journals, and private collection drops.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "newsletter"
   ]
 }
