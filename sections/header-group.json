@@ -24,6 +24,7 @@
     "header": {
       "type": "header",
       "settings": {
+        "menu": "main-menu",
         "show_search": true,
         "search_placeholder": "Search collections..."
       }
