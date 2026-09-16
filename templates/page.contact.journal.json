@@ -1,0 +1,80 @@
+
+{
+  "sections": {
+    "story_intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "The journal",
+        "heading": "Notes from\nthe studio floor",
+        "text": "Batch notes, workshop diaries, and the occasional long essay on what it means to make things slowly. Written the same way we fire our kilns \u2014 unhurried, and honest.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "featured_posts": {
+      "type": "terra-image-text",
+      "blocks": {
+        "post_kiln": {
+          "type": "row",
+          "settings": {
+            "image_position": "right",
+            "eyebrow": "From the kiln",
+            "heading": "Opening the kiln,\nbatch 05",
+            "text": "<p>Forty-eight hours of cooling, one anxious morning, and a glaze that came out better than we planned. A small write-up on the fire that made this batch.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "post_apprentice": {
+          "type": "row",
+          "settings": {
+            "image_position": "left",
+            "eyebrow": "In the workshop",
+            "heading": "A day with\nthe apprentices",
+            "text": "<p>What a Tuesday looks like when you teach throwing in the morning and pack orders in the afternoon. Tools, coffee, and a kiln that never waits.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "post_why_hand": {
+          "type": "row",
+          "settings": {
+            "image_position": "right",
+            "eyebrow": "Studio notes",
+            "heading": "Why we still\nthrow by hand",
+            "text": "<p>Molds are faster. Machines are consistent. Neither one carries a fingerprint. An honest defense of the slow way, and what it costs us to keep it.</p>",
+            "button_label": "Read on the journal",
+            "button_link": "/blogs/journal"
+          }
+        }
+      },
+      "block_order": ["post_kiln", "post_apprentice", "post_why_hand"],
+      "settings": {
+        "padding": 88,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "Behind the batches",
+        "text": "Get early catalog access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["story_intro", "featured_posts", "newsletter"]
+}

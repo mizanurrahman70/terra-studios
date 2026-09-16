@@ -7,7 +7,7 @@
         "media": { "type": "image", "settings": {} },
         "heading": { "type": "heading", "settings": { "eyebrow": "The autumn collection", "heading": "Tactile stoneware\nshaped by hand" } },
         "intro": { "type": "text", "settings": { "text": "<p>Organic curves, textured glazes, and timeless forms crafted to bring warmth and everyday beauty to your morning ritual.</p>" } },
-        "actions": { "type": "buttons", "settings": { "primary_label": "Shop collection", "primary_link": "/collections/all", "secondary_label": "Watch the process", "secondary_link": "/pages/our-story" } },
+        "actions": { "type": "buttons", "settings": { "primary_label": "Shop collection", "primary_link": "/collections/all", "secondary_label": "Watch the process", "secondary_link": "/#our-story" } },
         "lead_free": { "type": "stat", "settings": { "heading": "100%", "text": "Lead-Free Clay" } },
         "batch": { "type": "stat", "settings": { "heading": "Batch No. 04", "text": "Now Live" } }
       },
@@ -42,7 +42,7 @@
     "feature_list": {
       "type": "terra-feature-list",
       "blocks": {
-        "hand_crafted": { "type": "feature", "settings": { "icon": "leaf", "title": "Crafted by hand", "text": "Shaped on the wheel by studio artisans, so no two pieces are exactly alike.", "link": "/pages/our-story" } },
+        "hand_crafted": { "type": "feature", "settings": { "icon": "leaf", "title": "Crafted by hand", "text": "Shaped on the wheel by studio artisans, so no two pieces are exactly alike.", "link": "/#our-story" } },
         "made_to_last": { "type": "feature", "settings": { "icon": "shield", "title": "Made to last", "text": "Twice fired at 2200°F, every piece is built for the dishwasher and the everyday." } },
         "plastic_free": { "type": "feature", "settings": { "icon": "truck", "title": "Ships plastic-free", "text": "Compostable packing and carbon-neutral delivery on every order." } },
         "lead_free": { "type": "feature", "settings": { "icon": "droplet", "title": "Lead-free glazes", "text": "100% lead-free, food-safe clay and glazes on every single batch." } }
@@ -84,7 +84,7 @@
         "text": "Every piece from Terra Studios is hand-pressed, glazed and fired in local workshops. We\ncreate functional tableware that elevates mundane acts into meditative moments. Our\nstoneware is built thick to resist chipping, yet refined enough to act as permanent table\nsculpture.",
         "quote": "These are the pieces that make you wake up excited to brew your morning coffee.",
         "button_label": "Meet our apprentices",
-        "button_link": "/pages/our-story",
+        "button_link": "/#our-story",
         "padding": 82,
         "background": "#f8f7f4",
         "text_color": "#2b2925",

@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * Terra Studios — Apprentice Program.
+ * Accessible via any page with ?view=apprentice
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "Apprentice program",
+        "heading": "Learning at\nthe potter's wheel",
+        "text": "The craft doesn't survive unless it's passed on. Our apprenticeship teaches the full journey \u2014 from weighing clay to packing finished pieces \u2014 while paying a living wage and treating every student like a maker, not a line worker.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "program": {
+      "type": "terra-heritage-split",
+      "settings": {
+        "image_position": "right",
+        "eyebrow": "The program",
+        "heading": "An apprenticeship,\nnot an assembly line",
+        "text": "Each apprentice cycles through throwing, glazing, kiln loading, and packing over an eight-month residency. The studio pays a living wage and covers materials; apprentices sell their own first-run pieces to the studio at full price. Some of our finest tableware is made by people who arrived with no prior experience.",
+        "quote": "Twenty-eight apprentices have come through our doors \u2014 some now run studios of their own.",
+        "button_label": "",
+        "button_link": "",
+        "padding": 82,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "values": {
+      "type": "terra-feature-list",
+      "blocks": {
+        "v_wage": { "type": "feature", "settings": { "icon": "hands", "title": "Living wages", "text": "Apprentices are paid fairly from day one, never for piecework." } },
+        "v_craft": { "type": "feature", "settings": { "icon": "sparkle", "title": "The full craft", "text": "Plenty of throwing time, plus glazing, kiln work, and packing." } },
+        "v_growth": { "type": "feature", "settings": { "icon": "heart", "title": "Real careers", "text": "Graduates leave with a portfolio, references, and studio skills." } },
+        "v_inclusive": { "type": "feature", "settings": { "icon": "globe", "title": "Open to beginners", "text": "No prior experience required, only curiosity and steady hands." } }
+      },
+      "block_order": ["v_wage", "v_craft", "v_growth", "v_inclusive"],
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "Built around people",
+        "padding": 88,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "Behind the batches",
+        "text": "Get early catalog access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["intro", "program", "values", "newsletter"]
+}

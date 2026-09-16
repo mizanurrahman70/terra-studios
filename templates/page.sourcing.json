@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "Sourcing practices",
+        "heading": "Clay that\ndoesn't cost the earth",
+        "text": "Good ceramics start before the wheel \u2014 at the quarry, the glaze lab, and the packing table. We choose materials and partners that let us make beautiful things without passing the costs on to people or the planet.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "sourcing": {
+      "type": "terra-heritage-split",
+      "settings": {
+        "image_position": "left",
+        "eyebrow": "Where materials come from",
+        "heading": "Local reserves,\netically managed",
+        "text": "All of our clay comes from nearby mineral reserves with responsible extraction practices. Our glazes are mixed in-house from lead-free, food-safe components, and every batch is fired to food-safe certification standards.",
+        "quote": "If a material can't be traced back to a source we're proud of, it doesn't go in the kiln.",
+        "button_label": "",
+        "button_link": "",
+        "padding": 82,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "principles": {
+      "type": "terra-feature-list",
+      "blocks": {
+        "p_local": { "type": "feature", "settings": { "icon": "leaf", "title": "Local clay", "text": "Clay sourced from nearby, responsibly managed mineral reserves." } },
+        "p_lead": { "type": "feature", "settings": { "icon": "droplet", "title": "Lead-free glazes", "text": "Food-safe, lead-free glazes mixed in-house to certification standards." } },
+        "p_ethical": { "type": "feature", "settings": { "icon": "hands", "title": "Ethical labor", "text": "Fair living wages for every apprentice and studio workshop member." } },
+        "p_plastic": { "type": "feature", "settings": { "icon": "package", "title": "Plastic-free packing", "text": "Compostable wraps and recyclable boxes on every single order." } }
+      },
+      "block_order": ["p_local", "p_lead", "p_ethical", "p_plastic"],
+      "settings": {
+        "eyebrow": "Our commitments",
+        "heading": "Materials we stand behind",
+        "padding": 88,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "Behind the batches",
+        "text": "Get early catalog access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["intro", "sourcing", "principles", "newsletter"]
+}

@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * Terra Studios — Our Craftsmanship.
+ * Accessible via any page with ?view=craftsmanship
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "Our craftsmanship",
+        "heading": "Hands, wheels,\nand a patient kiln",
+        "text": "Every piece passes through a single set of hands before it reaches yours. We shape, glaze, and fire everything ourselves, and we hold each batch to the same standard: if we wouldn't eat off it, it doesn't ship.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "craft": {
+      "type": "terra-heritage-split",
+      "settings": {
+        "image_position": "right",
+        "eyebrow": "The process",
+        "heading": "Thrown, glazed,\ntwice vitrified",
+        "text": "Each vessel spends a week at the wheel, days in the glaze room, and two passes through the kiln at 2,200\u00b0F. The second firing vitrifies the clay into glass-like density \u2014 which is why our stoneware survives the dishwasher, the microwave, and decades of family dinners.",
+        "quote": "No molds. No assembly line. Just the marks a person leaves in the clay.",
+        "button_label": "",
+        "button_link": "",
+        "padding": 82,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "principles": {
+      "type": "terra-feature-list",
+      "blocks": {
+        "p_hands": { "type": "feature", "settings": { "icon": "hands", "title": "Hands, not molds", "text": "Every silhouette is shaped on the wheel by a person, so no two pieces are identical." } },
+        "p_fire": { "type": "feature", "settings": { "icon": "sparkle", "title": "Twice fired", "text": "Two firings at 2,200\u00b0F make each piece dense, durable, and safe for daily use." } },
+        "p_lead": { "type": "feature", "settings": { "icon": "droplet", "title": "Lead-free glazes", "text": "100% lead-free, food-safe glazes on every batch, fired to certification standards." } },
+        "p_small": { "type": "feature", "settings": { "icon": "heart", "title": "Made in small batches", "text": "Limited runs mean every batch is checked by the hands that made it." } }
+      },
+      "block_order": ["p_hands", "p_fire", "p_lead", "p_small"],
+      "settings": {
+        "eyebrow": "How we work",
+        "heading": "Built on these standards",
+        "padding": 88,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "Behind the batches",
+        "text": "Get early catalog access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["intro", "craft", "principles", "newsletter"]
+}
