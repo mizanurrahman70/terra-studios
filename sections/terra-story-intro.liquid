@@ -1,0 +1,29 @@
+{% style %}
+  #TerraStoryIntro-{{ section.id }} { --terra-story-bg: {{ section.settings.background }}; --terra-story-text: {{ section.settings.text_color }}; --terra-story-muted: {{ section.settings.muted_color }}; --terra-story-accent: {{ section.settings.accent_color }}; }
+{% endstyle %}
+
+{{ 'story-intro.css' | asset_url | stylesheet_tag }}
+
+<section id="TerraStoryIntro-{{ section.id }}" class="terra-story-intro">
+  <div class="terra-story-intro__content">
+    {% if section.settings.eyebrow != blank %}<p>{{ section.settings.eyebrow | escape }}</p>{% endif %}
+    <h1>{{ section.settings.heading | escape | newline_to_br }}</h1>
+    {% if section.settings.text != blank %}<div class="terra-story-intro__text">{{ section.settings.text | escape | newline_to_br }}</div>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Terra story page intro",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Terra Studios" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Made slowly,\nfor everyday rituals." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Terra Studios began with a belief that the objects we reach for every day should feel considered, enduring, and unmistakably human." },
+    { "type": "color", "id": "background", "label": "Background", "default": "#f5efe6" },
+    { "type": "color", "id": "text_color", "label": "Heading color", "default": "#2b2925" },
+    { "type": "color", "id": "muted_color", "label": "Text color", "default": "#77716b" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#c4592e" }
+  ],
+  "presets": [{ "name": "Terra story page intro" }]
+}
+{% endschema %}
