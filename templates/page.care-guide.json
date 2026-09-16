@@ -1,0 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * Terra Studios — Care & Lifetime Guide.
+ * Accessible via any page with ?view=care-guide
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "Care & lifetime guide",
+        "heading": "Made for\ndecades of meals",
+        "text": "Our stoneware is built to be lived with, not stored away. These are the simple habits that keep your pieces looking like the day they left the kiln.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "care": {
+      "type": "terra-rich-text",
+      "settings": {
+        "eyebrow": "The basics",
+        "heading": "Use it daily,\ncare for it simply",
+        "text": "<p><strong>Dishwasher &amp; microwave safe.</strong> Every piece is twice vitrified at 2,200&deg;F, so it handles the dishwasher, microwave, and a hot oven without a second thought. Avoid direct flame and sudden temperature shocks.</p><p><strong>Lead-free &amp; food-safe.</strong> We use only lead-free, food-safe clay and glazes, fired to food-safe certification standards on every batch.</p><p><strong>If it chips, we'll take it back.</strong> Pieces marked with a small glaze chip at the base are sold as seconds at a discount. Everything else is covered by our lifetime replacement promise for manufacturing defects.</p>",
+        "alignment": "center",
+        "max_width": 760,
+        "button_label": "See our FAQs",
+        "button_link": "/pages/contact?view=faqs",
+        "secondary_label": "",
+        "secondary_link": "",
+        "padding": 96,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "certifications": {
+      "type": "terra-feature-list",
+      "blocks": {
+        "c_dish": { "type": "feature", "settings": { "icon": "shield", "title": "Dishwasher safe", "text": "Twice vitrified stoneware shrugs off daily washing." } },
+        "c_food": { "type": "feature", "settings": { "icon": "droplet", "title": "Lead-free & food-safe", "text": "Food-safe clay and glazes on every certified batch." } },
+        "c_repair": { "type": "feature", "settings": { "icon": "heart", "title": "Lifetime promise", "text": "Manufacturing defects replaced free, whenever they surface." } },
+        "c_guide": { "type": "feature", "settings": { "icon": "package", "title": "Plastic-free packing", "text": "Compostable wraps and recyclable boxes on every order." } }
+      },
+      "block_order": ["c_dish", "c_food", "c_repair", "c_guide"],
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Care at a glance",
+        "padding": 88,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "Behind the batches",
+        "text": "Get early catalog access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["intro", "care", "certifications", "newsletter"]
+}

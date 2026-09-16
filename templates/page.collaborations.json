@@ -1,0 +1,74 @@
+/*
+ * ------------------------------------------------------------
+ * Terra Studios — Collaborations.
+ * Accessible via any page with ?view=collaborations
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "intro": {
+      "type": "terra-story-intro",
+      "settings": {
+        "eyebrow": "Collaborations",
+        "heading": "Better things,\nmade together",
+        "text": "Some of our favorite pieces began as conversations with chefs, galleries, and ceramic artists whose work we admire. These limited collections are made in small runs and rarely return.",
+        "background": "#f5efe6",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "projects": {
+      "type": "terra-image-text",
+      "blocks": {
+        "collab_one": {
+          "type": "row",
+          "settings": {
+            "image_position": "right",
+            "eyebrow": "Latest \u2014 Table for One",
+            "heading": "A dinner set with\nchef Lina Okafor",
+            "text": "<p>A set of 12 place pieces designed with a Chicago chef who wanted dinnerware that sits still on restaurant-light tables. Forty-eight sets made; each one numbered on the base.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "collab_two": {
+          "type": "row",
+          "settings": {
+            "image_position": "left",
+            "eyebrow": "Archive \u2014 River Glaze",
+            "heading": "Glaze studies with\nMilo Varga",
+            "text": "<p>Three months of glaze experiments, distilled into one river-washed palette. When the run sold out, we kept the notes and the kiln shelves are still stained.</p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["collab_one", "collab_two"],
+      "settings": {
+        "padding": 88,
+        "background": "#ffffff",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    },
+    "newsletter": {
+      "type": "terra-newsletter-signup",
+      "settings": {
+        "eyebrow": "Stay close",
+        "heading": "First pick of the drops",
+        "text": "Collaboration pieces sell out fast. Sign up to get early access, workshop journals, and first pick of each batch as it comes out of the kiln.\nNever spam, unsubscribe anytime.",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing.",
+        "padding": 98,
+        "background": "#f8f7f4",
+        "text_color": "#2b2925",
+        "muted_color": "#77716b",
+        "accent_color": "#c4592e"
+      }
+    }
+  },
+  "order": ["intro", "projects", "newsletter"]
+}
