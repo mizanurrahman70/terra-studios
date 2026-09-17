@@ -2,14 +2,13 @@
   <br>
     <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
   <br>
-  Shopify Skeleton Theme
+  Terra Studios Theme
 </h1>
 
-A minimal, carefully structured Shopify theme designed to help you quickly get started. Designed with modularity, maintainability, and Shopify's best practices in mind.
+A handcrafted Shopify theme for Terra Studios — ceramics, dinnerware, and studio storytelling. Built on the Shopify Skeleton Theme foundation with a set of modular, reusable sections, JSON templates, and a fully paginated gallery.
 
 <p align="center">
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-  <a href="./actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shopify/skeleton-theme/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 ## Getting started
@@ -22,17 +21,7 @@ Before starting, ensure you have the latest Shopify CLI installed:
 
 If you use VS Code:
 
-- [Shopify Liquid VS Code Extension](https://shopify.dev/docs/storefronts/themes/tools/shopify-liquid-vscode) – provides syntax highlighting, linting, inline documentation, and auto-completion specifically designed for Liquid templates
-
-### Clone
-
-Clone this repository using Git or Shopify CLI:
-
-```bash
-git clone git@github.com:Shopify/skeleton-theme.git
-# or
-shopify theme init
-```
+- [Shopify Liquid VS Code Extension](https://shopify.dev/docs/storefronts/themes/tools/shopify-liquid-vscode) – syntax highlighting, linting, inline documentation, and auto-completion for Liquid templates
 
 ### Preview
 
@@ -42,119 +31,119 @@ Preview this theme using Shopify CLI:
 shopify theme dev
 ```
 
+Run Theme Check to lint Liquid and validate schemas:
+
+```bash
+shopify theme check
+```
+
 ## Theme architecture
 
 ```bash
 .
-├── assets          # Stores static assets (CSS, JS, images, fonts, etc.)
-├── blocks          # Reusable, nestable, customizable UI components
-├── config          # Global theme settings and customization options
-├── layout          # Top-level wrappers for pages (layout templates)
-├── locales         # Translation files for theme internationalization
+├── assets          # Static assets (CSS, JS, images, fonts)
+├── blocks          # Reusable, nestable theme blocks
+├── config          # Global theme settings and settings schema
+├── layout          # Top-level page wrappers (theme.liquid, password.liquid)
+├── locales         # Translation files
 ├── sections        # Modular full-width page components
-├── snippets        # Reusable Liquid code or HTML fragments
-└── templates       # Templates combining sections to define page structures
+├── snippets        # Reusable Liquid fragments
+└── templates       # JSON templates that compose sections into pages
 ```
 
 To learn more, refer to the [theme architecture documentation](https://shopify.dev/docs/storefronts/themes/architecture).
 
-### Templates
+## Sections
 
-[Templates](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) control what's rendered on each type of page in a theme.
+Each `terra-*` section ships with a `{% schema %}` and is available in the theme editor via **Add section**.
 
-The Skeleton Theme scaffolds [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates) to make it easy for merchants to customize their store.
+| Section | File | Description |
+| --- | --- | --- |
+| Hero | `sections/terra-hero.liquid` | Headline, copy, buttons, image, and proof stats |
+| Trust bar | `sections/terra-trust-bar.liquid` | Icon + heading + text trust points |
+| Feature list | `sections/terra-feature-list.liquid` | Grid of feature items with icons |
+| Featured products | `sections/terra-featured-products.liquid` | Collection or manual product carousel |
+| Collection circles | `sections/terra-collection-circles.liquid` | Circular collection navigation |
+| Heritage split | `sections/terra-heritage-split.liquid` | Image + text split with optional quote |
+| Gallery | `sections/terra-gallery.liquid` | Masonry image gallery with show-all and pagination |
+| Testimonials | `sections/terra-testimonials.liquid` | Customer quotes with ratings |
+| FAQ | `sections/terra-faq.liquid` | Grouped accordion questions |
+| Newsletter signup | `sections/terra-newsletter-signup.liquid` | Email capture form |
+| Image banner | `sections/terra-image-banner.liquid` | Full-width promotional banner |
+| Image with text | `sections/terra-image-text.liquid` | Alternating image/text rows |
+| Rich text | `sections/terra-rich-text.liquid` | Freeform content block |
+| Logo bar | `sections/terra-logo-bar.liquid` | Row of partner/press logos |
+| Video | `sections/terra-video.liquid` | Embedded video with poster |
+| Story intro | `sections/terra-story-intro.liquid` | Page intro for story/content pages |
+| Contact form | `sections/terra-contact-form.liquid` | Contact form block |
 
-None of the template types are required, and not all of them are included in the Skeleton Theme. Refer to the [template types reference](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) for a full list.
+## Gallery
 
-### Sections
+`sections/terra-gallery.liquid` renders a masonry image gallery (CSS columns) with an optional **Show all photos** button and page-wise navigation.
 
-[Sections](https://shopify.dev/docs/storefronts/themes/architecture/sections) are Liquid files that allow you to create reusable modules of content that can be customized by merchants. They can also include blocks which allow merchants to add, remove, and reorder content within a section.
+### Settings
 
-Sections are made customizable by including a `{% schema %}` in the body. For more information, refer to the [section schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema).
+| Setting | ID | Notes |
+| --- | --- | --- |
+| Eyebrow | `eyebrow` | Small uppercase label |
+| Heading | `heading` | Section heading |
+| Columns | `columns` | 2–4 masonry columns |
+| Gap | `gap` | Space between photos |
+| Show all button label | `show_all_label` | Text for the button |
+| Show less button label | `show_less_label` | Text for the collapse button (inline mode) |
+| Show all page | `show_all_link` | When set, the button becomes a link to this page |
+| Show all photos with pagination | `paginate_all` | Renders every photo paginated — use on the gallery page |
+| Photos before button | `photos_to_show` | How many photos show before the button |
+| Photos per page | `photos_per_page` | Photos per page in paginated modes |
+| Spacing & colors | `padding`, `background`, `text_color`, `muted_color`, `accent_color` | Theme styling |
 
-### Blocks
+Each **Image** block supports an image, a caption, and an optional link. When no image is uploaded, a bundled fallback image (`gallery-1.webp` … `gallery-4.jpg`) is shown so the layout can be previewed.
 
-[Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks) let developers create flexible layouts by breaking down sections into smaller, reusable pieces of Liquid. Each block has its own set of settings, and can be added, removed, and reordered within a section.
+### Modes
 
-Blocks are made customizable by including a `{% schema %}` in the body. For more information, refer to the [block schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema).
+The section automatically selects a behavior based on the settings:
 
-## Schemas
+1. **Inline** *(default)* — shows `photos_to_show` photos, then expands in place with page-wise navigation.
+2. **Link** — set **Show all page** to a URL and the button navigates to that page. Use this on the home page.
+3. **Full** — enable **Show all photos with pagination** to render all photos page-wise immediately. Use this on the dedicated gallery page template.
 
-When developing components defined by schema settings, we recommend these guidelines to simplify your code:
+### Setting up the gallery page
 
-- **Single property settings**: For settings that correspond to a single CSS property, use CSS variables:
+Theme code cannot create Shopify pages, so one manual step is required:
 
-  ```liquid
-  <div class="collection" style="--gap: {{ block.settings.gap }}px">
-    ...
-  </div>
+1. In Shopify admin, go to **Pages → Add page**.
+2. Set the title to `Gallery` and the handle to `gallery`.
+3. Under **Theme template**, choose `gallery` (from `templates/page.gallery.json`).
+4. On the home page gallery section, set **Show all page** to `/pages/gallery`.
 
-  {% stylesheet %}
-    .collection {
-      gap: var(--gap);
-    }
-  {% endstylesheet %}
+If you use a different page handle, update the **Show all page** setting to match (`/pages/<handle>`).
 
-  {% schema %}
-  {
-    "settings": [{
-      "type": "range",
-      "label": "gap",
-      "id": "gap",
-      "min": 0,
-      "max": 100,
-      "unit": "px",
-      "default": 0,
-    }]
-  }
-  {% endschema %}
-  ```
+`templates/page.gallery.json` ships with the gallery section already configured in **Full** mode (`paginate_all: true`, `photos_per_page: 3`) plus a newsletter section.
 
-- **Multiple property settings**: For settings that control multiple CSS properties, use CSS classes:
+## Templates
 
-  ```liquid
-  <div class="collection {{ block.settings.layout }}">
-    ...
-  </div>
+[JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates) compose sections into pages. This theme includes:
 
-  {% stylesheet %}
-    .collection--full-width {
-      /* multiple styles */
-    }
-    .collection--narrow {
-      /* multiple styles */
-    }
-  {% endstylesheet %}
-
-  {% schema %}
-  {
-    "settings": [{
-      "type": "select",
-      "id": "layout",
-      "label": "layout",
-      "values": [
-        { "value": "collection--full-width", "label": "t:options.full" },
-        { "value": "collection--narrow", "label": "t:options.narrow" }
-      ]
-    }]
-  }
-  {% endschema %}
-  ```
+- `index.json` — home page
+- `product.json`, `collection.json`, `cart.json`, `search.json`, `blog.json`, `article.json`, `list-collections.json`, `404.json`, `password.json`
+- Story/content pages: `page.our-story.json`, `page.craftsmanship.json`, `page.sourcing.json`, `page.collaborations.json`, `page.apprentice.json`, `page.faqs.json`, `page.journal.json`, `page.care-guide.json`, `page.contact.our-story.json`, `page.contact.journal.json`
+- `page.gallery.json` — full paginated gallery page
+- `page.json` — default page template
 
 ## CSS & JavaScript
 
-For CSS and JavaScript, we recommend using the [`{% stylesheet %}`](https://shopify.dev/docs/api/liquid/tags#stylesheet) and [`{% javascript %}`](https://shopify.dev/docs/api/liquid/tags/javascript) tags. They can be included multiple times, but the code will only appear once.
+Styling and behavior live beside each section:
 
-### `critical.css`
+- Section CSS is loaded with `{{ 'name.css' | asset_url | stylesheet_tag }}` and stored in `assets/`.
+- Section JavaScript uses the `{% javascript %}` tag so Shopify includes it once per page.
+- Global/baseline styles live in `assets/critical.css`, which separates essential CSS loaded on every page.
 
-The Skeleton Theme explicitly separates essential CSS necessary for every page into a dedicated `critical.css` file.
+When adding settings, prefer CSS variables for single-property settings and CSS classes for multi-property settings. See the [section schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema) for details.
 
 ## Contributing
 
-We're excited for your contributions to the Skeleton Theme! This repository aims to remain as lean, lightweight, and fundamental as possible, and we kindly ask your contributions to align with this intention.
-
-Visit our [CONTRIBUTING.md](./CONTRIBUTING.md) for a detailed overview of our process, guidelines, and recommendations.
+Please keep contributions lean, lightweight, and focused. Visit [CONTRIBUTING.md](./CONTRIBUTING.md) for the full process and guidelines.
 
 ## License
 
-Skeleton Theme is open-sourced under the [MIT](./LICENSE.md) License.
+This theme is built on the Shopify Skeleton Theme. See [LICENSE.md](./LICENSE.md) for the full license terms governing use of the software.
